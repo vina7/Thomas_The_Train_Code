@@ -25,7 +25,7 @@ public class CTCOfficeUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AllTrains temp = AllTrains.getInstance();
+					AllTrains temp = AllTrains.getInstance(true);
 					CTCOfficeUI window = new CTCOfficeUI(temp);
 					window.frame.setVisible(true);
 				} catch (Exception e) {

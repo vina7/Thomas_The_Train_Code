@@ -9,9 +9,10 @@ public class AllTrains {
   ArrayList <Trains> GreenTrain;
   ArrayList <Trains> RedTrain;
   boolean DebugMode;
-  protected AllTrains(){
+  protected AllTrains(boolean DebugMode){
 	  this.GreenTrain = new ArrayList <Trains>();
 	  this.RedTrain = new ArrayList <Trains>();
+	  this.DebugMode=DebugMode;
   }
   public ArrayList <Trains> getGreenTrain(){
 	  return GreenTrain;
@@ -19,9 +20,9 @@ public class AllTrains {
   public ArrayList <Trains> getRedTrain(){
 	  return RedTrain;
   }
-  public static AllTrains getInstance(){
+  public static AllTrains getInstance(boolean DebugMode){
 	  if(instance == null){
-		  instance= new AllTrains();
+		  instance= new AllTrains(DebugMode);
 	  }
 	  return instance;
   }
