@@ -5,11 +5,13 @@ public class CTC_TC_Trains {
   private int BlockSpeedLim;
   private String NextStation;
   private boolean transponder;
-  public CTC_TC_Trains(int ID, int BlockSpeedLim, String NextStation, boolean transponder){
+  private int Destination;
+  public CTC_TC_Trains(int ID, int BlockSpeedLim, String NextStation, boolean transponder, int Destination){
 	  this.ID = ID;
 	  this.BlockSpeedLim= BlockSpeedLim;
 	  this.NextStation=NextStation;
 	  this.transponder= transponder;
+	  this.Destination= Destination;
   }
   public int getID(){
 	  return ID;
@@ -25,6 +27,12 @@ public class CTC_TC_Trains {
   }
   public String getNextStation(){
 	  return NextStation;
+  }
+  public void setNextDestination(int BlockNum){
+	  this.Destination= BlockNum;
+  }
+  public int getNextDestination(){
+	  return Destination;
   }
   public void setTransponder(boolean transponder){
 	  this.transponder = transponder;
