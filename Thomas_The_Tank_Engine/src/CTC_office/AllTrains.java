@@ -333,23 +333,20 @@ public class AllTrains {
 		  }
 		return -1;
 	}
-	public List <ScheduleInfo> getTrainSchedule(int ID, String Line){
+	public List <ScheduleInfo> getTrainSchedule(int ID){
 		Trains temp;
-		  if (Line =="Green"){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getTrainSchedule();
 				  }
 			  }
-		  } else if(Line=="Red"){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getTrainSchedule();
 				  }
-			  }
-		  }
+		      }
 		return null;
 	}
 	public boolean getUserSetSpeed(int ID, String Line){

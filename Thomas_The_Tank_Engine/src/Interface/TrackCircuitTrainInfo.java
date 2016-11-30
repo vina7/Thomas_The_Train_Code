@@ -25,9 +25,10 @@ public class TrackCircuitTrainInfo {
 	  this.Displacement = this.Displacement +Displacement;
   }
   public double getDisplacement(){
-	  double temp = Displacement;
+	  return Displacement;
+  }
+  public void resetDisplacement(){
 	  Displacement =0;
-	  return temp;
   }
   public void setSpeed(int Speed){
 	  this.Speed =Speed;
