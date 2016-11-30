@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CTCOfficeLoginScreen {
 
@@ -68,7 +70,19 @@ public class CTCOfficeLoginScreen {
 		frame.getContentPane().add(pwdCtc);
 		
 		JButton btnOk = new JButton("OK");
+		btnOk.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				LoginScreenVerifier verifier = new LoginScreenVerifier();
+				if(verifier.verify(frmtdtxtfldDispatcher.getText(),String.valueOf(pwdCtc.getPassword()))){
+					 frame.setVisible(false);
+					 frame.dispose();
+				}
+			}
+		});
 		btnOk.setBounds(153, 205, 117, 25);
 		frame.getContentPane().add(btnOk);
+		
+		
 	}
 }
