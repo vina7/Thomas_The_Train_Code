@@ -8,12 +8,17 @@ public class TrackCircuitTrainInfo {
   private double Displacement;
   private int Speed;
   private int Authority;
-  public TrackCircuitTrainInfo(int ID, double Grade, double Displacement, int Speed, int Authority){
+  private String Line;
+  public TrackCircuitTrainInfo(int ID, double Grade, double Displacement, int Speed, int Authority, String Line){
 	  this.ID= ID;
 	  this.Grade= Grade;
 	  this.Displacement=Displacement;
 	  this.Speed = Speed;
 	  this.Authority = Authority;
+	  this.Line = Line;
+  }
+  public String getLine(){
+	  return Line;
   }
   public void setGrade(double Grade){
 	  this.Grade = Grade;
