@@ -28,6 +28,9 @@ public class TrackCircuitTrainInfo {
   public String getLine(){
 	  return Line;
   }
+  public int getID(){
+	  return ID;
+  }
   public void setGrade(double Grade){
 	  this.Grade = Grade;
   }
