@@ -16,10 +16,18 @@ public class TrackCircuit {
 		  }
 		  return instance;
 	  }
-	public void makeNewTrain(int ID, double Grade, double Displacement, int Speed, int Authority, String Line){
-		TrackCircuitTrainInfo newtrain = new TrackCircuitTrainInfo(ID,Grade, Displacement, Speed, Authority, Line);
+	public void makeNewTrain(int ID, double Grade, double Displacement, int Speed, int Authority, String Line, int CurBlock){
+		TrackCircuitTrainInfo newtrain = new TrackCircuitTrainInfo(ID,Grade, Displacement, Speed, Authority, Line, CurBlock);
 		activetrains.add(newtrain);
 	}
+	public void setCurBlock(int CurBlock, int ID){
+		TrackCircuitTrainInfo temp = activetrains.get(ID);
+		  temp.setCurBlock(CurBlock);
+	  }
+	  public int setCurBlock(int ID){
+		  TrackCircuitTrainInfo temp = activetrains.get(ID);
+		  return temp.setCurBlock();
+	  }
 	public ArrayList <TrackCircuitTrainInfo> getActiveTrains(){
 		return activetrains;
 	}

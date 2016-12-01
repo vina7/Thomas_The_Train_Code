@@ -9,14 +9,22 @@ public class TrackCircuitTrainInfo {
   private int Speed;
   private int Authority;
   private String Line;
-  public TrackCircuitTrainInfo(int ID, double Grade, double Displacement, int Speed, int Authority, String Line){
+  private int CurBlock;
+  public TrackCircuitTrainInfo(int ID, double Grade, double Displacement, int Speed, int Authority, String Line, int CurBlock){
 	  this.ID= ID;
 	  this.Grade= Grade;
 	  this.Displacement=Displacement;
 	  this.Speed = Speed;
 	  this.Authority = Authority;
 	  this.Line = Line;
+	  this.CurBlock = CurBlock;
   }
+  public void setCurBlock(int CurBlock){
+		this.CurBlock = CurBlock;
+	  }
+	  public int setCurBlock(){
+		  return CurBlock;
+	  }
   public String getLine(){
 	  return Line;
   }
