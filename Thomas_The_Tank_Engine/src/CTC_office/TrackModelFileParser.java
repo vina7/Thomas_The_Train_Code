@@ -20,8 +20,22 @@ public class TrackModelFileParser {
           BufferedReader br = new BufferedReader(new FileReader(fileAddress));
           br.readLine();
           String line = "";
+          int counter =0;
           while ((line = br.readLine()) != null) {
               String[] info = line.split(",");
+              if(counter==0){
+            	  if(info[0].equals("Green")){
+            		  if(tracks.getGreenTrack().size()>0){
+            			  tracks.resetTracks("Green");
+            		  }
+            		  
+            	  }else if (info[0].equals("Red")){
+                     if(tracks.getRedTrack().size()>0){
+                    	 tracks.resetTracks("Red");
+            		  }
+            	  }
+            	  counter=1;
+              }
               if(info.length == 11){
               tracks.addBlock(info[0],info[1],Integer.parseInt(info[2]),(int) Double.parseDouble(info[3]),
                   Double.parseDouble(info[4]),Double.parseDouble(info[5]),info[6],Double.parseDouble(info[7]), 

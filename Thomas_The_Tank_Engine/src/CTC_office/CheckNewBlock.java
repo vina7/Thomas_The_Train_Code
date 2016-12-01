@@ -11,9 +11,9 @@ public class CheckNewBlock {
   public AllTrains  check(TrackCircuit circuit,int ID, AllTrains train, AllTrackBlock Blocks){
 	  if(circuit.getDisplacement(ID)>= train.getBlockLen(ID, train.getTrainSchedule(ID).get(0).getLine())){
 		  ArrayList <TrackBlock> Track = null;
-		  if (train.getTrainSchedule(ID).get(0).getLine()=="Green"){
+		  if (train.getTrainSchedule(ID).get(0).getLine().equals("Green")){
 		    Track = Blocks.getGreenTrack();
-		  } else if (train.getTrainSchedule(ID).get(0).getLine()=="Red"){
+		  } else if (train.getTrainSchedule(ID).get(0).getLine().equals("Red")){
 			  Track = Blocks.getRedTrack();
 		  }
 		  for(int i=0; i<Track.size(); i++){

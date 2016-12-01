@@ -30,14 +30,14 @@ public class AllTrains {
 			int BlockNum, int BlockLen, double BlockGrade,int BlockSpeedLim, double Elevation, 
 			boolean Retire, String Status, String LastStation, int DestBlock, List <ScheduleInfo> TrainSchedule, 
 			boolean UserSetSpeed, boolean UserSetDest){
-	       if(TrainSchedule.get(0).getLine()=="Green"){
+	       if(TrainSchedule.get(0).getLine().equals("Green")){
 	    	   Trains newTrain =new Trains(color, ID, Speed, Authority, Direction,  Section, 
 	    				BlockNum,  BlockLen,  BlockGrade, BlockSpeedLim, Elevation, 
 	    				 Retire,  Status,  LastStation,  DestBlock, TrainSchedule, 
 	    				UserSetSpeed,  UserSetDest);
 	    	   GreenTrain.add(newTrain);
 	    	   
-	       } else if (TrainSchedule.get(0).getLine()=="Red"){
+	       } else if (TrainSchedule.get(0).getLine().equals("Red")){
 	    	   Trains newTrain =new Trains(color, ID, Speed, Authority, Direction,  Section, 
 	    				BlockNum,  BlockLen,  BlockGrade, BlockSpeedLim, Elevation, 
 	    				 Retire,  Status,  LastStation,  DestBlock, TrainSchedule, 
@@ -48,14 +48,14 @@ public class AllTrains {
   }
   public Color getColor(int ID, String Line){
 	  Trains temp;
-	  if (Line =="Green"){
+	  if (Line.equals("Green")){
 		  for(int i =0; i<GreenTrain.size(); i++){
 			  temp = GreenTrain.get(i);
 			  if(temp.getID()==ID){
 				  return temp.getColor();
 			  }
 		  }
-	  } else if(Line=="Red"){
+	  } else if(Line.equals("Red")){
 		  for(int i =0; i<RedTrain.size(); i++){
 			  temp = RedTrain.get(i);
 			  if(temp.getID()==ID){
@@ -68,7 +68,7 @@ public class AllTrains {
 	}
 	public String getStatus(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
@@ -88,14 +88,14 @@ public class AllTrains {
 	}
 	public int getSpeed(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getSpeed();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -107,14 +107,14 @@ public class AllTrains {
 	}
 	public int getAuthority(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getAuthority();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -126,14 +126,14 @@ public class AllTrains {
 	}
 	public String getDirection(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getDirection();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -146,14 +146,14 @@ public class AllTrains {
 	}
 	public String getSection(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getSection();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -165,14 +165,14 @@ public class AllTrains {
 	}
 	public int getBlockNum(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getBlockNum();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -184,14 +184,14 @@ public class AllTrains {
 	}
 	public int getBlockLen(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getBlockLen();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -203,14 +203,14 @@ public class AllTrains {
 	}
 	public double getBlockGrade(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getBlockGrade();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -222,14 +222,14 @@ public class AllTrains {
 	}
 	public int getBlockSpeedLim(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getBlockSpeedLim();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -241,14 +241,14 @@ public class AllTrains {
 	}
 	public double getElevation(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getElevation();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -260,14 +260,14 @@ public class AllTrains {
 	}
 	public boolean getRetire(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getRetire();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -279,14 +279,14 @@ public class AllTrains {
 	}
 	public String getLastStation(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getLastStation();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -298,14 +298,14 @@ public class AllTrains {
 	}
 	public void setStatus(String Status, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setStatus(Status);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -316,14 +316,14 @@ public class AllTrains {
 	}
 	public int getDestBlock(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getDestBlock();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -351,14 +351,14 @@ public class AllTrains {
 	}
 	public boolean getUserSetSpeed(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getUserSetSpeed();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -370,14 +370,14 @@ public class AllTrains {
 	}
 	public boolean getUserSetDest(int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getUserSetDest();
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -389,14 +389,14 @@ public class AllTrains {
 	}
 	public void setSpeed(int Speed, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setSpeed(Speed);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -407,14 +407,14 @@ public class AllTrains {
 	}
 	public void setAuthority(int Authority, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setAuthority(Authority);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -425,14 +425,14 @@ public class AllTrains {
 	}
 	public void setDirection(String Direction, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setDirection(Direction);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -443,14 +443,14 @@ public class AllTrains {
 	}
 	public void setSection(String Section, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setSection(Section);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -461,14 +461,14 @@ public class AllTrains {
 	}
 	public void setBlockNum(int BlockNum, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setBlockNum(BlockNum);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -479,14 +479,14 @@ public class AllTrains {
 	}
 	public void setBlockLen(int BlockLen, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setBlockLen(BlockLen);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -497,14 +497,14 @@ public class AllTrains {
 	}
 	public void setBlockGrade(double BlockGrade, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setBlockGrade(BlockGrade);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -515,14 +515,14 @@ public class AllTrains {
 	}
 	public void setBlockSpeedLim(int BlockSpeedLim, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setBlockSpeedLim(BlockSpeedLim);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -533,14 +533,14 @@ public class AllTrains {
 	}
 	public void setElevation(double Elevation, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setElevation(Elevation);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -551,14 +551,14 @@ public class AllTrains {
 	}
 	public void setRetire(boolean Retire, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setRetire(Retire);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -569,14 +569,14 @@ public class AllTrains {
 	}
 	public void setLastStation(String LastStation, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setLastStation(LastStation);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -587,14 +587,14 @@ public class AllTrains {
 	}
 	public void setDestBlock(int DestBlock, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setDestBlock(DestBlock);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -605,14 +605,14 @@ public class AllTrains {
 	}
 	public void setTrainSchedule(List <ScheduleInfo> TrainSchedule, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setTrainSchedule(TrainSchedule);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -623,14 +623,14 @@ public class AllTrains {
 	}
 	public void setUserSetSpeed(boolean UserSetSpeed, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setUserSetSpeed(UserSetSpeed);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -641,14 +641,14 @@ public class AllTrains {
 	}
 	public void setUserSetDest(boolean UserSetDest, int ID, String Line){
 		Trains temp;
-		  if (Line =="Green"){
+		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setUserSetDest(UserSetDest);
 				  }
 			  }
-		  } else if(Line=="Red"){
+		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){

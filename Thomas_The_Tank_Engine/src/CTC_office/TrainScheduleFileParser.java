@@ -27,6 +27,7 @@ public class TrainScheduleFileParser {
 
               String[] info = line.split(",");
               ScheduleInfo schedule = new ScheduleInfo(info[0],info[1],Double.parseDouble(info[2]));
+              
               TrainSchedule.add(schedule);
           }
 		  int R;
@@ -38,8 +39,9 @@ public class TrainScheduleFileParser {
           B= (int)(Math.random()*256);
           }while(usedR.contains(R) && usedG.contains(G) && usedB.contains(B));
           Color color = new Color(R, G, B);
-          if(TrainSchedule.get(1).getLine().equals("Green")){
-              TrackBlock startLine=tracks.getGreenTrack().get(1);
+          if(TrainSchedule.get(0).getLine().equals("Green")){
+              TrackBlock startLine=tracks.getGreenTrack().get(0);
+             
               loop:
               for(int i =0;i<tracks.getGreenTrack().size(); i++){
                 if(tracks.getGreenTrack().get(i).getSection().equals("YY")){
@@ -55,7 +57,7 @@ public class TrainScheduleFileParser {
               
             
             }else {
-              TrackBlock startLine=tracks.getRedTrack().get(1);
+              TrackBlock startLine=tracks.getRedTrack().get(0);
               loop2:
                 for(int i =0;i<tracks.getRedTrack().size(); i++){
                   if(tracks.getRedTrack().get(i).getSection().equals("U")){
@@ -73,6 +75,9 @@ public class TrainScheduleFileParser {
 	  } catch (Exception p){
 		  System.out.println(p);
 	  }
+	  /*if(DebugMode){
+		  System.out.println("Train"+trainlist.getGreenTrain().size());
+	  }*/
 	  return trainlist;
   }
 }
