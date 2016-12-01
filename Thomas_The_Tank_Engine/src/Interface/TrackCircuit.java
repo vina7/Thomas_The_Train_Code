@@ -24,9 +24,9 @@ public class TrackCircuit {
 		TrackCircuitTrainInfo temp = activetrains.get(ID);
 		  temp.setCurBlock(CurBlock);
 	  }
-	  public int setCurBlock(int ID){
+	  public int getCurBlock(int ID){
 		  TrackCircuitTrainInfo temp = activetrains.get(ID);
-		  return temp.setCurBlock();
+		  return temp.getCurBlock();
 	  }
 	public ArrayList <TrackCircuitTrainInfo> getActiveTrains(){
 		return activetrains;

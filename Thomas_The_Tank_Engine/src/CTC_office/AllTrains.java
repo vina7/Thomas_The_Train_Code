@@ -26,19 +26,19 @@ public class AllTrains {
 	  }
 	  return instance;
   }
-  public void addTrain(Color color, int ID, int Speed, int Authority,String Direction, String Section, 
+  public void addTrain(Color color, int ID, int Speed, int Authority,String Direction, String PrevSection, String Section, 
 			int BlockNum, int BlockLen, double BlockGrade,int BlockSpeedLim, double Elevation, 
 			boolean Retire, String Status, String LastStation, int DestBlock, List <ScheduleInfo> TrainSchedule, 
 			boolean UserSetSpeed, boolean UserSetDest){
 	       if(TrainSchedule.get(0).getLine().equals("Green")){
-	    	   Trains newTrain =new Trains(color, ID, Speed, Authority, Direction,  Section, 
+	    	   Trains newTrain =new Trains(color, ID, Speed, Authority, Direction, PrevSection, Section, 
 	    				BlockNum,  BlockLen,  BlockGrade, BlockSpeedLim, Elevation, 
 	    				 Retire,  Status,  LastStation,  DestBlock, TrainSchedule, 
 	    				UserSetSpeed,  UserSetDest);
 	    	   GreenTrain.add(newTrain);
 	    	   
 	       } else if (TrainSchedule.get(0).getLine().equals("Red")){
-	    	   Trains newTrain =new Trains(color, ID, Speed, Authority, Direction,  Section, 
+	    	   Trains newTrain =new Trains(color, ID, Speed, Authority, Direction, PrevSection,  Section, 
 	    				BlockNum,  BlockLen,  BlockGrade, BlockSpeedLim, Elevation, 
 	    				 Retire,  Status,  LastStation,  DestBlock, TrainSchedule, 
 	    				UserSetSpeed,  UserSetDest);
@@ -143,6 +143,25 @@ public class AllTrains {
 		  }
 		
 		return null;
+	}
+	public String getPrevSection(int ID, String Line){
+		Trains temp;
+		  if (Line.equals("Green")){
+			  for(int i =0; i<GreenTrain.size(); i++){
+				  temp = GreenTrain.get(i);
+				  if(temp.getID()==ID){
+					  return temp.getPrevSection();
+				  }
+			  }
+		  } else if(Line.equals("Red")){
+			  for(int i =0; i<RedTrain.size(); i++){
+				  temp = RedTrain.get(i);
+				  if(temp.getID()==ID){
+					  return temp.getPrevSection();
+				  }
+			  }
+		  }
+		  return null;
 	}
 	public String getSection(int ID, String Line){
 		Trains temp;
@@ -437,6 +456,24 @@ public class AllTrains {
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setDirection(Direction);
+				  }
+			  }
+		  }
+	}
+	public void setPrevSection(String PrevSection, int ID, String Line){
+		Trains temp;
+		  if (Line.equals("Green")){
+			  for(int i =0; i<GreenTrain.size(); i++){
+				  temp = GreenTrain.get(i);
+				  if(temp.getID()==ID){
+					  temp.setPrevSection(PrevSection);
+				  }
+			  }
+		  } else if(Line.equals("Red")){
+			  for(int i =0; i<RedTrain.size(); i++){
+				  temp = RedTrain.get(i);
+				  if(temp.getID()==ID){
+					  temp.setSection(PrevSection);
 				  }
 			  }
 		  }

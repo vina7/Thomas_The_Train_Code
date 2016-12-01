@@ -22,7 +22,7 @@ public class TrackCircuitTrainInfo {
   public void setCurBlock(int CurBlock){
 		this.CurBlock = CurBlock;
 	  }
-	  public int setCurBlock(){
+	  public int getCurBlock(){
 		  return CurBlock;
 	  }
   public String getLine(){

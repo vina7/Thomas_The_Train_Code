@@ -83,9 +83,7 @@ public class MainLineTableModel extends AbstractTableModel {
         row.setAuthority((int) aValue);
     } else if(6 == columnIndex) {
       row.setRetire((boolean) aValue);
-  } else if(3 == columnIndex) {
-    row.setDestBlock((int) aValue);
-} 
+  } 
    
      
   }

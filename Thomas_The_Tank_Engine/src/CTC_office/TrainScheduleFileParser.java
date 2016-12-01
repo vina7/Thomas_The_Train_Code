@@ -50,7 +50,7 @@ public class TrainScheduleFileParser {
                 }
               }
               trainlist.addTrain(color, trainlist.getRedTrain().size()+trainlist.getGreenTrain().size(), (int) (startLine.getSpeedLimit()/1.61), 
-            		  (int) ((((((startLine.getSpeedLimit())*.27)/1.2)/3600)*startLine.getSpeedLimit())*3280.84),"Head", "YY", 
+            		  (int) ((((((startLine.getSpeedLimit())*.27)/1.2)/3600)*startLine.getSpeedLimit())*3280.84),"Head","-1" ,"YY", 
             		  startLine.getBlockNum(),(int) (startLine.getBlockLen()*3.2), 
             		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()/1.61), startLine.getElevation()*3.2, false, 
             		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false);
@@ -66,7 +66,7 @@ public class TrainScheduleFileParser {
                   }
                 }
               trainlist.addTrain(color, trainlist.getRedTrain().size()+trainlist.getGreenTrain().size(), (int) (startLine.getSpeedLimit()/1.61), 
-            		  (int) ((((((startLine.getSpeedLimit())*.27)/1.2)/3600)*startLine.getSpeedLimit())*3280.84),"Head", "U", 
+            		  (int) ((((((startLine.getSpeedLimit())*.27)/1.2)/3600)*startLine.getSpeedLimit())*3280.84),"Head", "-1" ,"U", 
             		  startLine.getBlockNum(),(int) (startLine.getBlockLen()*3.2), 
             		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()/1.61), startLine.getElevation()*3.2, false, 
             		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false);

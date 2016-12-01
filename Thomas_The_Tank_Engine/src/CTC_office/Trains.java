@@ -8,6 +8,7 @@ public class Trains {
 	private int Speed;
 	private int Authority;
 	private String Direction;
+	private String PrevSection;
 	private String Section;
 	private int BlockNum;
 	private int BlockLen;
@@ -21,7 +22,7 @@ public class Trains {
 	private List <ScheduleInfo> TrainSchedule;
 	private boolean UserSetSpeed;
 	private boolean UserSetDest;
-	public Trains(Color color, int ID, int Speed, int Authority,String Direction, String Section, 
+	public Trains(Color color, int ID, int Speed, int Authority,String Direction, String Section, String PrevSection,
 			int BlockNum, int BlockLen, double BlockGrade,int BlockSpeedLim, double Elevation, 
 			boolean Retire, String Status, String LastStation, int DestBlock, List <ScheduleInfo> TrainSchedule, 
 			boolean UserSetSpeed, boolean UserSetDest ){
@@ -32,6 +33,7 @@ public class Trains {
 		this.Authority=Authority;
 		this.Direction= Direction;
 		this.Section=Section;
+		this.PrevSection = PrevSection;
 		this.BlockNum =BlockNum;
 		this.BlockLen = BlockLen;
 		this.BlockGrade = BlockGrade;
@@ -61,6 +63,9 @@ public class Trains {
 	}
 	public String getDirection(){
 		return Direction;
+	}
+	public String getPrevSection(){
+		return PrevSection;
 	}
 	public String getSection(){
 		return Section;
@@ -109,6 +114,9 @@ public class Trains {
 	}
 	public void setDirection(String Direction){
 		this.Direction=Direction;
+	}
+	public void setPrevSection(String PrevSection){
+		this.PrevSection=PrevSection;
 	}
 	public void setSection(String Section){
 		this.Section=Section;
