@@ -9,6 +9,7 @@ public class Route {
 	  
 	public Route(){
 		
+		  redRoute.add(new RouteItem("-1","u","d",77,77,false));
 		  redRoute.add(new RouteItem("c","d","e",10,12,false));
 		  redRoute.add(new RouteItem("d","e","f",13,15,false));  
 		  redRoute.add(new RouteItem("e","f","g",16,20,false));
@@ -28,6 +29,7 @@ public class Route {
 		  redRoute.add(new RouteItem("a","b","c",4,6,false));
 		  redRoute.add(new RouteItem("b","c","d",7,9,false));
 		  
+		  greenRoute.add(new RouteItem("-1","yy","k",152,152,false));
 		  greenRoute.add(new RouteItem("j","k","l",63,68,false));
 		  greenRoute.add(new RouteItem("k","l","m",69,73,false));
 		  greenRoute.add(new RouteItem("l","m","n",74,76,false));
