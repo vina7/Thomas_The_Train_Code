@@ -1,156 +1,179 @@
+import java.util.concurrent.TimeUnit;
 
 public class Train {
 
-	private Brake serviceBrake;
-	private Brake emergencyBrake;
-	private Door leftSideDoors = new Door();
-	private Door rightSideDoors = new Door();
-    private Movement trainMovement = new Movement();
-    private boolean brakeFailure;
-   private boolean engineFailure;
-    private boolean signalPickupFailure;
-    private double grade;
-    private double enginePower;
-    private int currentSpeed;
-    private double authority;
-    private int blockSpeedlimit;
-    private int setSpeed;
-    private String approchingStation;
-    private int trainID;
-    
-    /**
-     * Initialize a stationary, full train with one car.
-     */
-    
-    public Train(int trainID) {
-    	serviceBrake = new Brake(1.2);
-    	emergencyBrake = new Brake(2.73);
-    	leftSideDoors = new Door();
-    	rightSideDoors = new Door();
-    	trainMovement = new Movement();
-    	brakeFailure = false;
-    	signalPickupFailure = false;
-    	engineFailure = false;
-    	this.trainID = trainID;
-    }
- 
-  
+	private int setSpeed;
+	
+	//possible failures that could occur on the train.
+	private boolean brakeFailure; //service brake fails. Prevents it from being engaged.
+	private boolean signalPickupFailure; //Train can't pickup signals from track circuit. authority = 0 and setSpeed = 0
+	private boolean engineFailure; //train engine fails. enginePower is set to 0.
+	
+	private double enginePower; //the power of the engine. cannot exceed 120 kW.
+	double engineForce; //force exerted on the train by the engine.
+	private double grade; //slope of the hill train is traveling on.
+	double gravitationalForce; // force exerted on the train by gravity. This can be positive, negative, or non-existent depending on the grade.
+	double rollingCoefficient = .001; //used in friction calculation.
+	double frictionalForce; //force exerted on the train by friction. Increases as grade increases.
+	private double trainForce; //net force exerted by train.
+	
+	
+	private double displacement;  
+	
+	//Variables used in calculating net force and acceleration 
+	private double trainMass = 40900; 
+	double gravity = 9.8; 
 
-    public void setEngineFailure(boolean fail) {
-        engineFailure = fail;
-    }
+	//Variables used in calculating acceleration
+    private int blockSpeedLimit;
+    private double currentSpeed;
+	private boolean serviceBrake;
+	private boolean emergencyBrake;
+	private double previousCurrentSpeed;
+	private double T=1; //sample period
+	private double acceleration; 
 
-    public void setSignalPickupFailure(boolean fail) {
-        signalPickupFailure = fail;
-        setSpeed = 0;
-        authority = 0;
-    }
 
-    public void setBrakeFailure(boolean fail) {
+	public Train() {
+	}
 
-    	brakeFailure = fail;
-    	serviceBrake.setBrakeStatus("fail");
-    }
-    
-    public void setEnginePower(int enginePower) {
-    	if (engineFailure)
-        {
-    	this.enginePower=0;
-        }
-        else
-        {
-        	this.enginePower=enginePower;
-        }
-    }
-    
-    public int getBlockSpeedLimit() {
-        return blockSpeedlimit;
-    }
+	public void calculateTrainForce() {
 
-    public double getAuthority() {
-        return authority;
-    }
+		//Checks to make sure the force of the engine does not exceed the its maximum. If it does it sets it to maximum.
+		if (enginePower/(currentSpeed) > 120000){
 
-    public double getCurrentSpeed() {
-        return currentSpeed;
-    }
+			engineForce = 120000; //N
+		}
+		else {
+			engineForce = enginePower/((currentSpeed)); //N
+		}
 
-    public boolean setServiceBrakeStatus(boolean brakeStatus) {
-  boolean fail;
-    	if (brakeFailure)
-    	{
-    	fail = true; 
-    	}
-    	else
-    	{
-    		{
-    	    	if (brakeStatus)
-    	    	{
-    	    		serviceBrake.setBrakeStatus("engaged");
-    	    	}
-    	    	else
-    	    	{
-    	    		serviceBrake.setBrakeStatus("Disengaged");
-    	    	}
-    	    	fail= false;
-    	    	}
-    }
-    	return fail;
-    
-    }
-    
-    public String getServiceBrakeStatus() {
-        return serviceBrake.getBrakeStatus();
-    }
+			frictionalForce = rollingCoefficient * (trainMass* gravity * Math.cos(Math.atan(grade/100))); //N
+			gravitationalForce = trainMass * gravity * Math.sin(Math.atan(grade/100)); //N
+			trainForce = engineForce - frictionalForce - gravitationalForce; //N
+		
+		System.out.println("The net force exerted by the train is: "+trainForce);
+	}
 
-    public boolean setEmergencyBrakeStatus(boolean brakeStatus) {
-    	if (brakeStatus)
-    	{
-    	emergencyBrake.setBrakeStatus("Engaged");
-    	}
-    	else
-    	{
-    		emergencyBrake.setBrakeStatus("Disengaged");
-    	}
-    	return true;
-    }
-    
-    
-    public String getEmergencyBrakeStatus() {
-        return emergencyBrake.getBrakeStatus();
-    }
+	public void calculateAcceleration(){
 
-    public boolean setLeftSideDoorsStatus(boolean doorStatus) {
-    	if (doorStatus)
-    	{
-    	leftSideDoors.setDoorStatus("Open");
-    	}
-    	else
-    	{
-    		leftSideDoors.setDoorStatus("Close");
-    	}
-    	return true;
-    }
+		//if emergency brake is active the following acceleration value will be used to calculate the speed.
+		if (emergencyBrake){
+			
+			acceleration = -2.73; // m/s^2
+		}
+		//if service brake is active the following acceleration value will be used to calculate the speed.
+		else if (serviceBrake){
+			
+			acceleration = -1.2; // m/s^2
+		}
+		//otherwise
+		else {
+			
+			acceleration = trainForce/trainMass;
+		}
+		System.out.println("The acceleration of the train is: "+acceleration);
+	}
+	
+	public void calculateCurrentSpeed(){
+		
+		//takes previous current speed and adds acceleration * a sample period of time to get current speed.
+		currentSpeed = previousCurrentSpeed + acceleration*T;
+		previousCurrentSpeed = currentSpeed;
+		System.out.println("The current speed of the train is: "+currentSpeed);
+	}
+	
+	public void calculateDisplacmnet(){
+		
+	displacement = currentSpeed * T;
+	System.out.println("The displacement of the train durign the time period of "+T+"seconds is: "+displacement);
+	}
+	
+	public void setBlockSpeedLimit(int blockSpeedLimit)
+	{
+		this.blockSpeedLimit = blockSpeedLimit;
+	}
+	
+	public int getBlockSpeedLimit(int blockSpeedLimit)
+	{
+		return blockSpeedLimit;
+	}
+	
+	public void setSetSpeed(int setSpeed){
+		
+		this.setSpeed = setSpeed;
+	}
+	
+	public int getSetSpeed(){
+		
+		return setSpeed;
+	}
+	
+	public double getCurrentSpeed(){
+		
+		return currentSpeed;
+	}
+	
+	public double getDisplacement(){
+		
+		return displacement;
+	}
+	
+	public void setEnginePower(double enginePower) {
+		
+if (engineFailure){
+			
+			enginePower = 0;
+		}
+		else {
+			this.enginePower = enginePower;	
+		}
+	}
+	
+	public double getEnginePower()
+	{
+		
+		return enginePower;
+	}
+	
+
+			
+	public static void main(String args[])
+	{
+		trainController tc = new trainController();
+		Train t=new Train();
+		
+		while (true)
+		{
+			tc.powerCalculator();
+			t.setEnginePower(tc.getpower());
+			t.calculateTrainForce();
+			t.calculateAcceleration();
+			t.calculateCurrentSpeed();
+			tc.setCurrentSpeed(t.getCurrentSpeed());
+		System.out.println("");
+		try {
+			TimeUnit.MILLISECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		
+						}
+
+	private void calculateTrainSpeed() {
+		// TODO Auto-generated method stub
+		
+	}	
+	}
+
+	
+
     
-    public String getLeftSideDoorsStatus() {
-        return leftSideDoors.getDoorStatus();
-    }
+    	
     
-    public boolean setRightSideDoorsStatus(boolean doorStatus) {
-    	if (doorStatus)
-    	{
-    	rightSideDoors.setDoorStatus("Open");
-    	}
-    	else
-    	{
-    		rightSideDoors.setDoorStatus("Close");
-    	}
-    	return true;
-    }
-    
-    
-    public String getRightSideDoorsStatus() {
-        return rightSideDoors.getDoorStatus();
-    }
-}
+
+
+
 
