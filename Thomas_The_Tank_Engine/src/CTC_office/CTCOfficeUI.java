@@ -36,6 +36,7 @@ public class CTCOfficeUI {
 	private TrainScheduleFileParser TSparser = new TrainScheduleFileParser(true);
 	private TrackModelFileParser TMparser= new TrackModelFileParser(true);
     private CTC_Office temp;
+
     private VerifyManualMode mode = new VerifyManualMode();
     private Switches switchinterface = Switches.getInstance(false);
     private TrackCircuit circuit;

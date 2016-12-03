@@ -15,7 +15,7 @@ import Overall_Sys.TimeClass;
 
 /*Track Controller. The system will be controlled by 4 TCs, each controlling a quadrant of the track. */
 public class TrackController {
-
+	
 
 	/* TrackController's Main Method */
 	public static void main(String[] args){
@@ -36,6 +36,7 @@ public class TrackController {
 				moveAllNeededSwitches();
 				
 				updateTrainInterface();
+				
 
 			}
 		}
@@ -127,7 +128,7 @@ public class TrackController {
 					switchDestinations = greenSwitchOptions.get((int)switchArrayIndex);
 					
 					nextSection = route.getNextGreen(prevSection.toLowerCase(), currSection.toLowerCase());
-					
+					System.out.println("gothere");
 					switches.setSwitchPosition(nextSection, switchSource, line);
 
 					

@@ -10,6 +10,7 @@ public class Route {
 	public Route(){
 		
 		  redRoute.add(new RouteItem("-1","u","d",77,77,false));
+		  redRoute.add(new RouteItem("u","d","e",10,12,false));
 		  redRoute.add(new RouteItem("c","d","e",10,12,false));
 		  redRoute.add(new RouteItem("d","e","f",13,15,false));  
 		  redRoute.add(new RouteItem("e","f","g",16,20,false));
@@ -30,6 +31,7 @@ public class Route {
 		  redRoute.add(new RouteItem("b","c","d",7,9,false));
 		  
 		  greenRoute.add(new RouteItem("-1","yy","k",152,152,false));
+		  greenRoute.add(new RouteItem("yy","k","l",63,68,false));
 		  greenRoute.add(new RouteItem("j","k","l",63,68,false));
 		  greenRoute.add(new RouteItem("k","l","m",69,73,false));
 		  greenRoute.add(new RouteItem("l","m","n",74,76,false));
@@ -71,28 +73,104 @@ public class Route {
 		  String next = new String(); 
 		  
 		  for(int i = 0; i<redRoute.size();i++){
-			  if((((redRoute.get(0)).getPrev()).equals(prev))&&(((redRoute.get(0)).getCurr()).equals(curr))){
-				  return((redRoute.get(0)).getNext());
+			  if((((redRoute.get(i)).getPrev()).equalsIgnoreCase(prev))&&(((redRoute.get(i)).getCurr()).equalsIgnoreCase(curr))){
+				  return((redRoute.get(i)).getNext());
 			  }
 		  }
 		  
 		  return null;
 
 	  }
-	  
+      public int getRedEntryBlock(String prev, String curr){
+		  
+		  String next = new String(); 
+		  
+		  for(int i = 0; i<redRoute.size();i++){
+			  if((((redRoute.get(i)).getPrev()).equalsIgnoreCase(prev))&&(((redRoute.get(i)).getCurr()).equalsIgnoreCase(curr))){
+				  return((redRoute.get(i)).getEntryBlock());
+			  }
+		  }
+		  
+		  return -1;
+
+	  }
+     public int getRedExitBlock(String prev, String curr){
+		  
+		  String next = new String(); 
+		  
+		  for(int i = 0; i<redRoute.size();i++){
+			  if((((redRoute.get(i)).getPrev()).equalsIgnoreCase(prev))&&(((redRoute.get(i)).getCurr()).equalsIgnoreCase(curr))){
+				  return((redRoute.get(i)).getExitBlock());
+			  }
+		  }
+		  
+		  return -1;
+
+	  }
+     public boolean getReddirect(String prev, String curr){
+		  
+		  String next = new String(); 
+		  
+		  for(int i = 0; i<redRoute.size();i++){
+			  if((((redRoute.get(i)).getPrev()).equalsIgnoreCase(prev))&&(((redRoute.get(i)).getCurr()).equalsIgnoreCase(curr))){
+				  return((redRoute.get(i)).getReverse());
+			  }
+		  }
+		  
+		  return false;
+
+	  }
 	  public String getNextGreen(String prev, String curr){
 		  
 		  String next = new String(); 
 		  
 		  for(int i = 0; i<greenRoute.size();i++){
-			  if((((greenRoute.get(0)).getPrev()).equals(prev))&&(((greenRoute.get(0)).getCurr()).equals(curr))){
-				  return((greenRoute.get(0)).getNext());
+			  if((((greenRoute.get(i)).getPrev()).equalsIgnoreCase(prev))&&(((greenRoute.get(i)).getCurr()).equalsIgnoreCase(curr))){
+				  return((greenRoute.get(i)).getNext());
 			  }
 		  }
 		  
 		  return null;
 
 	  }
-	  
+      public int getGreenEntryBlock(String prev, String curr){
+		  
+		  String next = new String(); 
+		  System.out.println(prev+" "+curr);
+		  for(int i = 0; i<greenRoute.size();i++){
+			  if((((greenRoute.get(i)).getPrev()).equalsIgnoreCase(prev))&&(((greenRoute.get(i)).getCurr()).equalsIgnoreCase(curr))){
+				  return((greenRoute.get(i)).getEntryBlock());
+			  }
+		  }
+		  
+		  return -1;
+
+	  }
+      public int getGreenExitBlock(String prev, String curr){
+		  
+		  String next = new String(); 
+		  
+		  for(int i = 0; i<greenRoute.size();i++){
+			  if((((greenRoute.get(i)).getPrev()).equalsIgnoreCase(prev))&&(((greenRoute.get(i)).getCurr()).equalsIgnoreCase(curr))){
+				  return((greenRoute.get(i)).getExitBlock());
+			  }
+		  }
+		  
+		  return -1;
+
+	  }
+      public boolean getGreendirect(String prev, String curr){
+		  
+		  String next = new String(); 
+		  
+		  for(int i = 0; i<greenRoute.size();i++){
+			  if((((greenRoute.get(i)).getPrev()).equalsIgnoreCase(prev))&&(((greenRoute.get(i)).getCurr()).equalsIgnoreCase(curr))){
+				  return((greenRoute.get(i)).getReverse());
+			  }
+		  }
+		  
+		  return false;
+
+	  }
 	  
 }

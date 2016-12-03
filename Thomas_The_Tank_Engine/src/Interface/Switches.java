@@ -18,6 +18,7 @@ public class Switches {
 		Redswitchlocations = new ArrayList <Integer> ();
 		Greenswitchoptions= new ArrayList <Integer[]> ();
 		Redswitchoptions= new ArrayList <Integer[]> ();
+		Blocks = AllTrackBlock.getInstance(false);
 		this.DebugMode=DebugMode;
 	  }
 	public static Switches getInstance(boolean DebugMode){
@@ -133,6 +134,7 @@ public class Switches {
 		return Redswitchoptions;
 	}
 	public void setSwitchPosition(String SwitchPosition, int BlockNum,String Line){
+		System.out.println("insetswitch");
 		Blocks.setSwitchPosition(SwitchPosition, BlockNum, Line);
 	}
 	public AllTrackBlock getupdatedBlock(){

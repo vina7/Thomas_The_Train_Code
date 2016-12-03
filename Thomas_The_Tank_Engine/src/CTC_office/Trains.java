@@ -22,7 +22,7 @@ public class Trains {
 	private List <ScheduleInfo> TrainSchedule;
 	private boolean UserSetSpeed;
 	private boolean UserSetDest;
-	public Trains(Color color, int ID, int Speed, int Authority,String Direction, String Section, String PrevSection,
+	public Trains(Color color, int ID, int Speed, int Authority,String Direction,String PrevSection, String Section, 
 			int BlockNum, int BlockLen, double BlockGrade,int BlockSpeedLim, double Elevation, 
 			boolean Retire, String Status, String LastStation, int DestBlock, List <ScheduleInfo> TrainSchedule, 
 			boolean UserSetSpeed, boolean UserSetDest ){
