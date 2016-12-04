@@ -5,7 +5,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class MainLineTableModel extends AbstractTableModel {
   
-  private static List<Trains> TrainList;
+  private List<Trains> TrainList;
   
   private final String[] columnNames = new String[] {
       "color","Line","ID","Speed (mph)", "Block Number","Authority (ft)","Direction","Retire", "Status"
@@ -17,6 +17,9 @@ public class MainLineTableModel extends AbstractTableModel {
   public MainLineTableModel(List<Trains> TrainList)
   {
       this.TrainList = TrainList;
+  }
+  public void updateTrainList(List<Trains> TrainList){
+	  this.TrainList = TrainList;
   }
    
   @Override

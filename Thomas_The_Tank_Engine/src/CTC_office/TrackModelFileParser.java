@@ -37,13 +37,13 @@ public class TrackModelFileParser {
             	  counter=1;
               }
               if(info.length == 11){
-              tracks.addBlock(info[0],info[1],Integer.parseInt(info[2]),(int) Double.parseDouble(info[3]),
-                  Double.parseDouble(info[4]),Double.parseDouble(info[5]),info[6],Double.parseDouble(info[7]), 
-                  Double.parseDouble(info[8]), info[9], info[10], "", false,0, false, "UP",0);
+              tracks.addBlock(info[0],info[1],Integer.parseInt(info[2]),(int) (Double.parseDouble(info[3])*3.3),
+                  Double.parseDouble(info[4]),Double.parseDouble(info[5])*.621,info[6],Double.parseDouble(info[7])*3.3, 
+                  Double.parseDouble(info[8])*3.3, info[9], info[10], "", false,0, false, info[6].equals("RAILWAY CROSSING") ? "UP" : "",0);
               } else{
-                tracks.addBlock(info[0],info[1],Integer.parseInt(info[2]),(int) Double.parseDouble(info[3]),
-                    Double.parseDouble(info[4]),Integer.parseInt(info[5]),info[6],Double.parseDouble(info[7]), 
-                    Double.parseDouble(info[8]), info[9], "", "", false,0, false, "UP",0);
+                tracks.addBlock(info[0],info[1],Integer.parseInt(info[2]),(int) (Double.parseDouble(info[3])*3.3),
+                    Double.parseDouble(info[4]),Integer.parseInt(info[5])*.621,info[6],Double.parseDouble(info[7])*3.3, 
+                    Double.parseDouble(info[8])*3.3, info[9], "", "", false,0, false, info[6].equals("RAILWAY CROSSING") ? "UP" : "",0);
               }  
           }
           br.close();

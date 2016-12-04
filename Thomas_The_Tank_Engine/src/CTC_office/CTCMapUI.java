@@ -254,7 +254,7 @@ public class CTCMapUI {
             Color.BLACK, "Multiple Trains", "Multiple Trains"));
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
+		frame.getContentPane().setLayout(new GridLayout(0,1));
 		JPanel panel = new MapPanel(shapes);
 		panel.setPreferredSize(new Dimension(1700,550));
 		 frame.getContentPane().add(panel);
