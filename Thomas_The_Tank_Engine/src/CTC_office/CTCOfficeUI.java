@@ -163,6 +163,34 @@ public class CTCOfficeUI {
 		table = new JTable();
 		table.setModel(Line);
 		table.setBounds(31, 105, 354, 32);
+		table.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent e) {
+		      if(mode.verify()){
+		      if (e.getClickCount() == 2) {
+		        JTable target = (JTable)e.getSource();
+		        int row = target.getSelectedRow();
+		        int column = target.getSelectedColumn();
+		        if(column== 3){
+		        String speed = JOptionPane.showInputDialog(table, "Set new Speed (mph)");
+		        //table.setValueAt(Integer.parseInt(speed), row, column);
+		        }
+		        if(column== 5){
+		          String authority= JOptionPane.showInputDialog(table, "Set new Authority (ft)");
+		          //table.setValueAt(Integer.parseInt(authority), row, column);
+		          }
+		        if(column== 4){
+		          String block = JOptionPane.showInputDialog(table, "Set destination block");
+		          //table.setValueAt(Integer.parseInt(block), row, column);
+		          }
+		        if(column== 7){
+		          String retire= JOptionPane.showInputDialog(table, "Retire Train (true/false)?");
+		          table.setValueAt(Boolean.parseBoolean(retire), row, column);
+		          }
+		        // do some action if appropriate column
+		      }
+		    }
+		    }
+		  });
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);

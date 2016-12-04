@@ -66,6 +66,7 @@ public class CheckNewBlock {
 		  train.setAuthority((int) (((Math.pow((Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getSpeedLimit())*.447,2))/(2*1.2))*3.3), ID, train.getTrainSchedule(ID).get(0).getLine());
 		  
 	  }
+	  train.setDisplaySpeed((int)(circuit.getDisplayDisplacement(ID)*2.23), ID, train.getTrainSchedule(ID).get(0).getLine());
 	  return train;
   }
 }

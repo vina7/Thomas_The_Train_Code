@@ -6,6 +6,7 @@ public class TrackCircuitTrainInfo {
   private boolean verifiedA;
   private double Grade;
   private double Displacement;
+  private double displayDisplacement=0;
   private int Speed;
   private int Authority;
   private String Line;
@@ -38,7 +39,11 @@ public class TrackCircuitTrainInfo {
 	  return Grade;
   }
   public void addDisplacement(double Displacement){
+	  this.displayDisplacement = Displacement;
 	  this.Displacement = this.Displacement +(Displacement*3.3);
+  }
+  public double getDisplayDisplacement(){
+	  return displayDisplacement;
   }
   public double getDisplacement(){
 	  return Displacement;

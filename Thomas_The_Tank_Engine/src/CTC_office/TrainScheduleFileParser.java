@@ -53,7 +53,7 @@ public class TrainScheduleFileParser {
             		  (int) (((Math.pow((startLine.getSpeedLimit()*.447),2))/(2*1.2))*3.3),"Head","-1" ,"YY", 
             		  startLine.getBlockNum(),(int) (startLine.getBlockLen()), 
             		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()), startLine.getElevation(), false, 
-            		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false);
+            		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false,0);
               map.updateColor("YY","-1", "Green", color);
             
             }else {
@@ -69,7 +69,7 @@ public class TrainScheduleFileParser {
             		  (int) (((Math.pow((startLine.getSpeedLimit()*.447),2))/(2*1.2))*3.3),"Head", "-1" ,"U", 
             		  startLine.getBlockNum(),(int) (startLine.getBlockLen()), 
             		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()), startLine.getElevation(), false, 
-            		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false);
+            		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false,0);
               map.updateColor("U","-1", "Red", color);
             }
           br.close();

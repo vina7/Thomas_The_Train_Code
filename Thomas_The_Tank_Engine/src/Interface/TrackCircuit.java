@@ -47,6 +47,10 @@ public class TrackCircuit {
 		  TrackCircuitTrainInfo temp = activetrains.get(ID);
 		  temp.addDisplacement(Displacement);
 	  }
+	  public double getDisplayDisplacement(int ID){
+		  TrackCircuitTrainInfo temp = activetrains.get(ID);
+		  return temp.getDisplayDisplacement();
+	  }
 	  public double getDisplacement(int ID){
 		  TrackCircuitTrainInfo temp = activetrains.get(ID);
 		  return temp.getDisplacement();

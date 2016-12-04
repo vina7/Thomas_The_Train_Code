@@ -22,10 +22,11 @@ public class Trains {
 	private List <ScheduleInfo> TrainSchedule;
 	private boolean UserSetSpeed;
 	private boolean UserSetDest;
+	private int DisplaySpeed;
 	public Trains(Color color, int ID, int Speed, int Authority,String Direction,String PrevSection, String Section, 
 			int BlockNum, int BlockLen, double BlockGrade,int BlockSpeedLim, double Elevation, 
 			boolean Retire, String Status, String LastStation, int DestBlock, List <ScheduleInfo> TrainSchedule, 
-			boolean UserSetSpeed, boolean UserSetDest ){
+			boolean UserSetSpeed, boolean UserSetDest, int DisplaySpeed){
 		this.color= color;
 		this.ID=ID;
 		this.Status = Status;
@@ -45,6 +46,7 @@ public class Trains {
 		this.TrainSchedule = TrainSchedule;
 		this.UserSetSpeed = UserSetSpeed;
 		this.UserSetDest = UserSetDest;
+		this.DisplaySpeed = DisplaySpeed;
 	}
 	public Color getColor(){
        return color;
@@ -54,6 +56,9 @@ public class Trains {
 	}
 	public String getStatus(){
 		return Status;
+	}
+	public int getDisplaySpeed(){
+		return DisplaySpeed;
 	}
 	public int getSpeed(){
 		return Speed;
@@ -108,6 +113,9 @@ public class Trains {
 	}
 	public void setSpeed(int Speed){
 		this.Speed= Speed;
+	}
+	public void setDisplaySpeed(int DisplaySpeed){
+		this.DisplaySpeed= DisplaySpeed;
 	}
 	public void setAuthority(int Authority){
 		this.Authority=Authority;

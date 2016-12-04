@@ -6,7 +6,6 @@ import javax.swing.table.AbstractTableModel;
 public class MainLineTableModel extends AbstractTableModel {
   
   private List<Trains> TrainList;
-  
   private final String[] columnNames = new String[] {
       "color","Line","ID","Speed (mph)", "Block Number","Authority (ft)","Direction","Retire", "Status"
   };
@@ -60,7 +59,7 @@ public class MainLineTableModel extends AbstractTableModel {
           return row.getID();
       }
       else if(3 == columnIndex) {
-    	  return row.getSpeed();
+    	  return row.getDisplaySpeed();
         
        }
       else if(4 == columnIndex) {
