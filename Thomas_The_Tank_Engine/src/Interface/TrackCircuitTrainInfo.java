@@ -38,7 +38,7 @@ public class TrackCircuitTrainInfo {
 	  return Grade;
   }
   public void addDisplacement(double Displacement){
-	  this.Displacement = this.Displacement +Displacement;
+	  this.Displacement = this.Displacement +(Displacement*3.3);
   }
   public double getDisplacement(){
 	  return Displacement;

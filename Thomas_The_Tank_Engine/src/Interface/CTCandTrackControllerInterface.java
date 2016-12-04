@@ -19,7 +19,6 @@ public class CTCandTrackControllerInterface {
 	public void makeNewTrain(int ID, int BlockSpeedLim, String NextStation, boolean transponder, int Destination){
 		CTC_TC_Trains newtrain = new CTC_TC_Trains(ID, BlockSpeedLim, NextStation, transponder, Destination);
 		activetrains.add(newtrain);
-		System.out.println("gother");
 	}
 	public void setBlockSpeedLim(int ID,int BlockSpeedLim){
 		  CTC_TC_Trains temp = activetrains.get(ID);
@@ -42,7 +41,6 @@ public class CTCandTrackControllerInterface {
 		  temp.setNextStation(NextStation);
 	  }
 	  public String getNextStation(int ID){
-		  System.out.println(activetrains.size());
 		  CTC_TC_Trains temp = activetrains.get(ID);
 		  
 		  return temp.getNextStation();

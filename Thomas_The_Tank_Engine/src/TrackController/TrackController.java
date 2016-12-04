@@ -35,7 +35,6 @@ public class TrackController {
 				moveAllNeededSwitches();
 				
 				updateTrainInterface();
-				//System.out.println("got here");
 
 			}
 		}
@@ -123,7 +122,6 @@ public class TrackController {
 					prevSection=allTrains.getPrevSection(id, line);
 					currSection = allTrains.getSection(id, line);
 					nextSection = route.getNextGreen(prevSection.toLowerCase(), currSection.toLowerCase());
-					System.out.println("gothere");
 					switches.setSwitchPosition(nextSection, switchSource, line);
 
 					
@@ -157,7 +155,6 @@ public class TrackController {
 					prevSection=allTrains.getPrevSection(id, line);
 					currSection = allTrains.getSection(id, line);
 					nextSection = route.getNextGreen(prevSection.toLowerCase(), currSection.toLowerCase());
-					System.out.println("got here");
 					switches.setSwitchPosition(currSection, switchSource, line);
 					}
 

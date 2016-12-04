@@ -248,8 +248,6 @@ public class CTCMapUI {
             Color.GREEN, "Pioneer", "Pioneer"));
         shapes.add(new ShapeItem(new Rectangle2D.Double(1265, 415, 10, 35),
             Color.GREEN, "A", "GA"));
-        shapes.add(new ShapeItem(new Rectangle2D.Double(415, 500 , 60 ,10),
-            Color.ORANGE, "Underground", "Underground"));
         shapes.add(new ShapeItem(new Ellipse2D.Double(815, 475, 50, 50),
             Color.BLACK, "Multiple Trains", "Multiple Trains"));
 		frame = new JFrame();

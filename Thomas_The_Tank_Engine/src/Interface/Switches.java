@@ -134,7 +134,6 @@ public class Switches {
 		return Redswitchoptions;
 	}
 	public void setSwitchPosition(String SwitchPosition, int BlockNum,String Line){
-		System.out.println("insetswitch");
 		Blocks.setSwitchPosition(SwitchPosition, BlockNum, Line);
 	}
 	public AllTrackBlock getupdatedBlock(){

@@ -178,11 +178,6 @@ public class CTCOfficeUI {
 		table2.setColumnSelectionAllowed(false);
 		table2.setRowSelectionAllowed(false);
 		JScrollPane scrollPane2 = new JScrollPane(table2);
-		scrollPane2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
 		scrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);	
 		scrollPane2.setBounds(12, 302, 1134, 323);
