@@ -30,40 +30,39 @@ public class CTC_Office {
 		TimeClass timer = TimeClass.getInstance(false);
 		CTCMapUI mapwindow;
 		CTCOfficeUI Mainwindow;
-		Mainwindow= new CTCOfficeUI(myself.train,myself.Blocks,myself, myself.circuit);
-		mapwindow = new CTCMapUI();
+		try
+		{
+			mapwindow = new CTCMapUI();
+			Mainwindow= new CTCOfficeUI(myself.train,myself.Blocks,myself, myself.circuit, mapwindow);
+		
 		while(true){
 			ArrayList <Trains> redlinetrains = myself.train.getRedTrain();
 			for(int i = 0; i<redlinetrains.size();i++){
-				myself.train=myself.newBlock.check(myself.circuit, redlinetrains.get(i).getID(), myself.train, myself.Blocks);
+				myself.train=myself.newBlock.check(myself.circuit, redlinetrains.get(i).getID(), myself.train, myself.Blocks, mapwindow);
 				myself.circuit.setAuthority(myself.train.getAuthority(redlinetrains.get(i).getID(), "Red"), redlinetrains.get(i).getID());
 				myself.circuit.setCurBlock(myself.train.getBlockNum(redlinetrains.get(i).getID(), "Red"), redlinetrains.get(i).getID());
 				myself.circuit.setGrade(myself.train.getBlockGrade(redlinetrains.get(i).getID(), "Red"), redlinetrains.get(i).getID());
 				myself.circuit.setSpeed(myself.train.getSpeed(redlinetrains.get(i).getID(), "Red"), redlinetrains.get(i).getID());
-				myself.circuit.addDisplacement(25,redlinetrains.get(i).getID());
-				mapwindow.updateColor(myself.train.getSection(redlinetrains.get(i).getID(), "Red"), "Red", myself.train.getColor(redlinetrains.get(i).getID(),"Red"));
 				
 			}
-			Mainwindow.updateRedTrains(myself.train);
+			Mainwindow.updateTrains(myself.train);
 			ArrayList <Trains> greenlinetrains = myself.train.getGreenTrain();
 			for(int i = 0; i<greenlinetrains.size();i++){
-				myself.train=myself.newBlock.check(myself.circuit, greenlinetrains.get(i).getID(), myself.train, myself.Blocks);
+				myself.train=myself.newBlock.check(myself.circuit, greenlinetrains.get(i).getID(), myself.train, myself.Blocks, mapwindow);
 				myself.circuit.setAuthority(myself.train.getAuthority(greenlinetrains.get(i).getID(), "Green"), greenlinetrains.get(i).getID());
 				myself.circuit.setCurBlock(myself.train.getBlockNum(greenlinetrains.get(i).getID(), "Green"), greenlinetrains.get(i).getID());
 				myself.circuit.setGrade(myself.train.getBlockGrade(greenlinetrains.get(i).getID(), "Green"), greenlinetrains.get(i).getID());
 				myself.circuit.setSpeed(myself.train.getSpeed(greenlinetrains.get(i).getID(), "Green"), greenlinetrains.get(i).getID());
-				myself.circuit.addDisplacement(25,greenlinetrains.get(i).getID());
-				mapwindow.updateColor(myself.train.getSection(greenlinetrains.get(i).getID(), "Green"), "Green", myself.train.getColor(greenlinetrains.get(i).getID(),"Green"));
+				
 			}
-			Mainwindow.updateGreenTrains(myself.train);
+			Mainwindow.updateTrains(myself.train);
 			myself.Blocks = myself.switching.getupdatedBlock();
 			if(myself.Blocks.getRedTrack()!=null){
-			Mainwindow.updateRedSwitchTable(myself.Blocks);
+			Mainwindow.updateSwitchTable(myself.Blocks);
 			
 			}
 			if(myself.Blocks.getGreenTrack()!=null){
-				//System.out.println("Got here");
-				Mainwindow.updateGreenSwitchTable(myself.Blocks);
+				Mainwindow.updateSwitchTable(myself.Blocks);
 			}
 		
 			
@@ -83,6 +82,10 @@ public class CTC_Office {
 		}
 		timer.incrementTime();
 		}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
 		
 	}
 	public CTC_Office(){

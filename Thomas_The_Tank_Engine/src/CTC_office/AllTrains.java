@@ -473,7 +473,7 @@ public class AllTrains {
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
-					  temp.setSection(PrevSection);
+					  temp.setPrevSection(PrevSection);
 				  }
 			  }
 		  }

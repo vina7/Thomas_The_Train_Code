@@ -3,6 +3,7 @@ package Overall_Sys;
 import javax.swing.JFrame;
 
 import CTC_office.CTC_Office;
+import TrainModelControler.TrainModelMain;
 
 public class Overall_Thomas {
 	
@@ -18,7 +19,11 @@ public class Overall_Thomas {
 		       new CTC_Office();
 			}
 		}.start();
-	
+	   new Thread(){
+		   public void run(){
+		       TrainModelMain.main();
+			}
+	   }.start();
 		
 	}
 }

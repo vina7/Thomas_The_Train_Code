@@ -39,7 +39,7 @@ public class Route {
 		  greenRoute.add(new RouteItem("n","o","p",86,88,false));
 		  greenRoute.add(new RouteItem("o","p","q",89,97,false));
 		  greenRoute.add(new RouteItem("p","q","n",98,100,false));
-		  greenRoute.add(new RouteItem("q","n","r",85,77,false));
+		  greenRoute.add(new RouteItem("q","n","r",85,77,true));
 		  greenRoute.add(new RouteItem("n","r","s",101,101,false));
 		  greenRoute.add(new RouteItem("r","s","t",102,104,false));
 		  greenRoute.add(new RouteItem("s","t","u",105,109,false));
@@ -136,7 +136,6 @@ public class Route {
       public int getGreenEntryBlock(String prev, String curr){
 		  
 		  String next = new String(); 
-		  System.out.println(prev+" "+curr);
 		  for(int i = 0; i<greenRoute.size();i++){
 			  if((((greenRoute.get(i)).getPrev()).equalsIgnoreCase(prev))&&(((greenRoute.get(i)).getCurr()).equalsIgnoreCase(curr))){
 				  return((greenRoute.get(i)).getEntryBlock());

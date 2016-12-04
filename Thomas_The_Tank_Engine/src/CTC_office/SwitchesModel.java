@@ -7,8 +7,9 @@ import javax.sound.sampled.Line;
 import javax.swing.table.AbstractTableModel;
 
 public class SwitchesModel extends AbstractTableModel {		  
-		  private final List<TrackBlock> LineList;
-		  private ArrayList <Integer> switchlocations;
+		  private AllTrackBlock Blocks;
+		  private ArrayList <Integer> rswitchlocations;
+		  private ArrayList <Integer> gswitchlocations;
 		  private int lastindex=0;
 		  
 		  private final String[] columnNames = new String[] {
@@ -18,10 +19,11 @@ public class SwitchesModel extends AbstractTableModel {
 		      String.class, Integer.class, String.class, String.class
 		  };
 
-		  public SwitchesModel(List<TrackBlock> LineList, ArrayList <Integer> switchlocations)
+		  public SwitchesModel(AllTrackBlock Blocks, ArrayList <Integer> rswitchlocations,ArrayList <Integer> gswitchlocations )
 		  {
-		      this.LineList = LineList;
-		      this.switchlocations =switchlocations; 
+		      this.Blocks= Blocks;
+		      this.rswitchlocations =rswitchlocations; 
+		      this.gswitchlocations =gswitchlocations; 
 		  }
 		   
 		  @Override
@@ -46,37 +48,42 @@ public class SwitchesModel extends AbstractTableModel {
 		  public int getRowCount()
 		  {
 		    int count=0;
-		    for(int i =0; i<LineList.size(); i++){ 
-		      if(LineList.get(i).getInfrastructure().equals("SWITCH")){
-		       count++;
-		      }
-		    }
-		      return count;
+		    count = rswitchlocations.size() + gswitchlocations.size();
+		     return count;
 		  }
 		  
 		  @Override
 		  public Object getValueAt(int rowIndex, int columnIndex)
 		  {
-		    TrackBlock row = LineList.get(switchlocations.get(rowIndex)-1);
-		    System.out.println(LineList.size());
-		    System.out.println(rowIndex);
-		       if(0 == columnIndex && row!=null) {
-		         return row.getSection();
+		    if(rswitchlocations.size()>rowIndex){
+		       if(0 == columnIndex && rswitchlocations!=null) {
+		         return Blocks.getSection(rswitchlocations.get(rowIndex), "Red");
 		      }
-		      else if(1 == columnIndex && row!=null) {
-		          return row.getBlockNum();
+		      else if(1 == columnIndex && rswitchlocations!=null) {
+		          return rswitchlocations.get(rowIndex);
 		      }
-		      else if(2 == columnIndex && row!=null) {
-		          return row.getLine();
+		      else if(2 == columnIndex && rswitchlocations!=null) {
+		          return "Red";
 		      }
-		      else if(3 == columnIndex && row!=null) {
-		       /* lastindex=i+1;
-		        if(rowIndex == this.getRowCount()-1){
-		          System.out.println("got here");
-		          lastindex=0;
-		        }*/
-		        return row.getSwitchPosition();
+		      else if(3 == columnIndex && rswitchlocations!=null) {
+		        return Blocks.getSwitchPosition(rswitchlocations.get(rowIndex), "Red");
 		    }
+		    } else {
+		    	 if(0 == columnIndex && gswitchlocations!=null) {
+			         return Blocks.getSection(gswitchlocations.get(rowIndex), "Green");
+			      }
+			      else if(1 == columnIndex && gswitchlocations!=null) {
+			          return gswitchlocations.get(rowIndex);
+			      }
+			      else if(2 == columnIndex && gswitchlocations!=null) {
+			          return "Green";
+			      }
+			      else if(3 == columnIndex && gswitchlocations!=null) {
+			        return Blocks.getSwitchPosition(gswitchlocations.get(rowIndex), "Green");
+		    	
+		      }
+		    }
+		    
 		      return null;
 		  }
 		  /*@Override

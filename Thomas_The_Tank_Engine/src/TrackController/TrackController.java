@@ -26,9 +26,8 @@ public class TrackController {
 
 		/* Holds all calculations off so they only happen every second */ 
 		while(true){
-			if(currentTime != time.getTime()){
-				currentTime = time.getTime();  
-
+			if(time.getChangedTrainTime()){ 
+				time.gotChangedTrainTime();
 				verifyAllTrainSpeeds();
 				
 				verifyAllTrainAuthorities();
@@ -36,7 +35,7 @@ public class TrackController {
 				moveAllNeededSwitches();
 				
 				updateTrainInterface();
-				
+				//System.out.println("got here");
 
 			}
 		}
@@ -159,7 +158,7 @@ public class TrackController {
 					switchSource = greenSwitchLocationBlockNums.get((int)switchArrayIndex);
 					
 					nextSection = route.getNextGreen(prevSection.toLowerCase(), currSection.toLowerCase());
-					
+					System.out.println("got here");
 					switches.setSwitchPosition(currSection, switchSource, line);
 
 

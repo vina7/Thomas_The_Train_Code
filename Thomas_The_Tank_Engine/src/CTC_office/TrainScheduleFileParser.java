@@ -17,7 +17,7 @@ public class TrainScheduleFileParser {
 	  usedG= new ArrayList();
 	   usedB= new ArrayList();
   }
-  public AllTrains Parser(AllTrains trainlist, String fileAddress, AllTrackBlock tracks){
+  public AllTrains Parser(AllTrains trainlist, String fileAddress, AllTrackBlock tracks, CTCMapUI map){
 	  List<ScheduleInfo> TrainSchedule = new ArrayList<ScheduleInfo>();
 	  try {
 		  BufferedReader br = new BufferedReader(new FileReader(fileAddress)); 
@@ -54,7 +54,7 @@ public class TrainScheduleFileParser {
             		  startLine.getBlockNum(),(int) (startLine.getBlockLen()*3.2), 
             		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()/1.61), startLine.getElevation()*3.2, false, 
             		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false);
-              
+              map.updateColor("YY","-1", "Green", color);
             
             }else {
               TrackBlock startLine=tracks.getRedTrack().get(0);
@@ -70,14 +70,12 @@ public class TrainScheduleFileParser {
             		  startLine.getBlockNum(),(int) (startLine.getBlockLen()*3.2), 
             		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()/1.61), startLine.getElevation()*3.2, false, 
             		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false);
+              map.updateColor("U","-1", "Red", color);
             }
           br.close();
 	  } catch (Exception p){
 		  System.out.println(p);
 	  }
-	  /*if(DebugMode){
-		  System.out.println("Train"+trainlist.getGreenTrain().size());
-	  }*/
 	  return trainlist;
   }
 }

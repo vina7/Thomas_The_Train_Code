@@ -194,6 +194,8 @@ public class CTCMapUI {
             Color.GREEN, "Y", "GY"));
         shapes.add(new ShapeItem(new Rectangle2D.Double(745, 370, 10, 25),
             Color.GREEN, "Z", "GZ"));
+        shapes.add(new ShapeItem(new Rectangle2D.Double(110, 265, 10, 130),
+                Color.GREEN, "J", "GJ"));
         shapes.add(new ShapeItem(new Rectangle2D.Double(70, 400, 40, 10),
             Color.GREEN, "ZZ", "GZZ"));
         shapes.add(new ShapeItem(new Rectangle2D.Double(115, 400, 30, 10),
@@ -267,23 +269,46 @@ public class CTCMapUI {
            }
          }
 	}
-	public void updateColor(String Section, String Line, Color color){
+	public void updateColor(String Section,String PrevSection, String Line, Color color){
 		if(Line.equals("Green")){
 			String temp = "G"+Section;
+			String temp2 = "G"+PrevSection;
 			for (ShapeItem item : shapes) {	 
-		           if(item.getID().equals(temp)){	  
+		           if(item.getID().equalsIgnoreCase(temp)){
+		        	   
+		        	   if(!item.getColor().equals(Color.GREEN))
+					   {
+						   item.setColor(Color.BLACK);
+				             frame.repaint();
+					   } else {
+						
 		             item.setColor(color);
 		             frame.repaint();
+					   }
 		           }
+		           if(item.getID().equalsIgnoreCase(temp2)){	  
+			             item.setColor(Color.GREEN);
+			             frame.repaint();
+			           }
 		         }
 		}else if (Line.equals("Red")){
 			String temp = "R"+Section;
+			String temp2 = "R"+PrevSection;
 			for (ShapeItem item : shapes) {
-		           if(item.getName().equals(temp)){
+				  if(item.getID().equalsIgnoreCase(temp)){
+					  if(!item.getColor().equals(Color.RED))
+					   {
+						   item.setColor(Color.BLACK);
+				             frame.repaint();
+					   } else {
 		             item.setColor(color);
-		             frame.pack();
 		             frame.repaint();
+					   }
 		           }
+		           if(item.getID().equalsIgnoreCase(temp2)){	  
+			             item.setColor(Color.RED);
+			             frame.repaint();
+			           }
 		         }
 			
 		}
