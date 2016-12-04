@@ -30,6 +30,8 @@ public class CTCOfficeUI {
 	private JFrame frame;
 	private JTable table;
 	private JTable table2;
+	private MainLineTableModel Line=null;
+	private SwitchesModel switchs=null;
 	private AllTrains Train;
 	private AllTrackBlock Blocks;
 	private TrainScheduleFileParser TSparser = new TrainScheduleFileParser(true);
@@ -74,7 +76,7 @@ public class CTCOfficeUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1181, 541);
+		frame.setBounds(100, 100, 1173, 686);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		JToggleButton tglbtnNewToggleButton = new JToggleButton("Manual Mode?");
@@ -117,24 +119,22 @@ public class CTCOfficeUI {
 			          File file = fc.getSelectedFile();
 			          Train=TSparser.Parser(Train, file.getPath(), Blocks, map);
 			          temp.updateTrain(Train);		
-			          MainLineTableModel Line = null;
 			          if(file.getPath().equals("/home/van/workspace5/Thomas_The_Tank_Engine/Red_Line_Schedule.csv")){
 			          List <Trains>  alltrains = new ArrayList <Trains>();
 			          alltrains.addAll(Train.getRedTrain());
 			          alltrains.addAll(Train.getGreenTrain());
-                      Line = new MainLineTableModel(alltrains);
+                      Line.updateTrainList(alltrains);
 			  		  Trains newtrain = Train.getRedTrain().get(Train.getRedTrain().size()-1);
 			  		  circuit.makeNewTrain( newtrain.getID(), newtrain.getBlockGrade(), 0, newtrain.getSpeed(), newtrain.getAuthority(), "Red", newtrain.getBlockNum());
 			  		  } else if (file.getPath().equals("/home/van/workspace5/Thomas_The_Tank_Engine/Green_Line_Schedule.csv")){
 			  			List <Trains>  alltrains = new ArrayList <Trains>();
 				          alltrains.addAll(Train.getRedTrain());
 				          alltrains.addAll(Train.getGreenTrain());
-	                      Line = new MainLineTableModel(alltrains);
+				          Line.updateTrainList(alltrains);
 			  		Trains newtrain = Train.getGreenTrain().get(Train.getGreenTrain().size()-1);
 			  		  circuit.makeNewTrain( newtrain.getID(), newtrain.getBlockGrade(), 0, newtrain.getSpeed(), newtrain.getAuthority(), "Green", newtrain.getBlockNum());
 			  		  }
-			          table.setModel(Line);
-				  	SwingUtilities.updateComponentTreeUI(table);
+				  	  Line.fireTableDataChanged();
 			      }
 			}
 		});
@@ -156,14 +156,13 @@ public class CTCOfficeUI {
 			          SwitchesModel switchs =null;
 			          if(file.getPath().equals("/home/van/workspace5/Thomas_The_Tank_Engine/Red_Track_Layout.csv")){
 			        	  Blocks=switchinterface.updateBlocks(Blocks, "Red");
-			        	  switchs = new SwitchesModel(Blocks,switchinterface.getRedswitchlocations(), switchinterface.getGreenswitchlocations());
+			        	  switchs.updateBlocks(Blocks);
 					  		 
 					  		  } else if (file.getPath().equals("/home/van/workspace5/Thomas_The_Tank_Engine/Green_Track_Layout.csv")){
 					  			Blocks=switchinterface.updateBlocks(Blocks, "Green");
-					  			switchs = new SwitchesModel(Blocks,switchinterface.getRedswitchlocations(), switchinterface.getGreenswitchlocations());
+					  			switchs.updateBlocks(Blocks);
 					  		  }
-			          table2.setModel(switchs);
-			  		  table2.updateUI(); 
+			          switchs.fireTableDataChanged();
 			      }
 			}
 		});
@@ -172,17 +171,17 @@ public class CTCOfficeUI {
 		List <Trains>  alltrains = new ArrayList <Trains>();
         alltrains.addAll(Train.getRedTrain());
         alltrains.addAll(Train.getGreenTrain());
-		MainLineTableModel Line = new MainLineTableModel(alltrains);
+		Line = new MainLineTableModel(alltrains);
 		table = new JTable();
 		table.setModel(Line);
 		table.setBounds(31, 105, 354, 32);
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(12, 127, 624, 149);
+		scrollPane.setBounds(12, 127, 1134, 159);
 		frame.getContentPane().add(scrollPane);
 		frame.setVisible(true);
-		SwitchesModel switchs = new SwitchesModel(Blocks,switchinterface.getRedswitchlocations(),switchinterface.getGreenswitchlocations() );
+		switchs = new SwitchesModel(Blocks);
 		table2 = new JTable(switchs);
 		table2.setBounds(31, 105, 354, 32);
 		table2.setFocusable(false);
@@ -198,7 +197,7 @@ public class CTCOfficeUI {
 		});
 		scrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);	
-		scrollPane2.setBounds(668, 127, 264, 149);
+		scrollPane2.setBounds(12, 302, 1134, 323);
 		frame.getContentPane().add(scrollPane2);
 		
 		JButton btnBrakeRail = new JButton("Brake Rail");
@@ -209,15 +208,14 @@ public class CTCOfficeUI {
 	}
 	public void updateSwitchTable(AllTrackBlock Blocks){
 		this.Blocks =Blocks;
-		SwitchesModel redswitch = new SwitchesModel(this.Blocks,this.switchinterface.getRedswitchlocations(), switchinterface.getGreenswitchlocations());
-		table2.setModel(redswitch);
-		table2.updateUI();
+		switchs.updateBlocks(Blocks);
+		switchs.fireTableDataChanged();
 	}
 	public void updateTrains(AllTrains Train){
 		List <Trains>  alltrains = new ArrayList <Trains>();
         alltrains.addAll(Train.getRedTrain());
         alltrains.addAll(Train.getGreenTrain());
-		  MainLineTableModel Line2 = new MainLineTableModel(alltrains);
-		  table.setModel(Line2);
+		Line.updateTrainList(alltrains);
+		Line.fireTableDataChanged();
 	}
 }

@@ -49,10 +49,10 @@ public class TrainScheduleFileParser {
                   break loop;
                 }
               }
-              trainlist.addTrain(color, trainlist.getRedTrain().size()+trainlist.getGreenTrain().size(), (int) (startLine.getSpeedLimit()/1.61), 
-            		  (int) ((((((startLine.getSpeedLimit())*.27)/1.2)/3600)*startLine.getSpeedLimit())*3280.84),"Head","-1" ,"YY", 
-            		  startLine.getBlockNum(),(int) (startLine.getBlockLen()*3.2), 
-            		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()/1.61), startLine.getElevation()*3.2, false, 
+              trainlist.addTrain(color, trainlist.getRedTrain().size()+trainlist.getGreenTrain().size(), (int) (startLine.getSpeedLimit()), 
+            		  (int) (((Math.pow((startLine.getSpeedLimit()*.447),2))/(2*1.2))*3.3),"Head","-1" ,"YY", 
+            		  startLine.getBlockNum(),(int) (startLine.getBlockLen()), 
+            		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()), startLine.getElevation(), false, 
             		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false);
               map.updateColor("YY","-1", "Green", color);
             
@@ -65,10 +65,10 @@ public class TrainScheduleFileParser {
                     break loop2;
                   }
                 }
-              trainlist.addTrain(color, trainlist.getRedTrain().size()+trainlist.getGreenTrain().size(), (int) (startLine.getSpeedLimit()/1.61), 
-            		  (int) ((((((startLine.getSpeedLimit())*.27)/1.2)/3600)*startLine.getSpeedLimit())*3280.84),"Head", "-1" ,"U", 
-            		  startLine.getBlockNum(),(int) (startLine.getBlockLen()*3.2), 
-            		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()/1.61), startLine.getElevation()*3.2, false, 
+              trainlist.addTrain(color, trainlist.getRedTrain().size()+trainlist.getGreenTrain().size(), (int) (startLine.getSpeedLimit()), 
+            		  (int) (((Math.pow((startLine.getSpeedLimit()*.447),2))/(2*1.2))*3.3),"Head", "-1" ,"U", 
+            		  startLine.getBlockNum(),(int) (startLine.getBlockLen()), 
+            		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()), startLine.getElevation(), false, 
             		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false);
               map.updateColor("U","-1", "Red", color);
             }
