@@ -16,6 +16,7 @@ import java.awt.FlowLayout;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 
+import Interface.CTCandTrackControllerInterface;
 import Interface.Switches;
 import Interface.TrackCircuit;
 
@@ -41,26 +42,9 @@ public class CTCOfficeUI {
     private VerifyManualMode mode = new VerifyManualMode();
     private Switches switchinterface = Switches.getInstance(false);
     private TrackCircuit circuit;
+    private CTCandTrackControllerInterface CTCTCint = CTCandTrackControllerInterface.getInstance(false);
 	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AllTrains temp = AllTrains.getInstance(false);
-					AllTrackBlock temp2 = AllTrackBlock.getInstance(false);
-					CTC_Office temp3 = new CTC_Office();
-					CTCOfficeUI window = new CTCOfficeUI(temp, temp2, temp3);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
+	 * 
 	 * Create the application.
 	 */
 	public CTCOfficeUI(AllTrains Train, AllTrackBlock Blocks, CTC_Office CTC,TrackCircuit circuit, CTCMapUI map ) {
@@ -69,6 +53,7 @@ public class CTCOfficeUI {
 		this.temp= CTC;
 		this.circuit = circuit;
 		this.map =map;
+		
 		initialize();
 	}
 	/**
@@ -125,7 +110,9 @@ public class CTCOfficeUI {
 			          alltrains.addAll(Train.getGreenTrain());
                       Line.updateTrainList(alltrains);
 			  		  Trains newtrain = Train.getRedTrain().get(Train.getRedTrain().size()-1);
+			  		  
 			  		  circuit.makeNewTrain( newtrain.getID(), newtrain.getBlockGrade(), 0, newtrain.getSpeed(), newtrain.getAuthority(), "Red", newtrain.getBlockNum());
+			  		 CTCTCint.makeNewTrain(newtrain.getID(), newtrain.getBlockSpeedLim(), newtrain.getTrainSchedule().get(0).getStation(), false, 7);
 			  		  } else if (file.getPath().equals("/home/van/workspace5/Thomas_The_Tank_Engine/Green_Line_Schedule.csv")){
 			  			List <Trains>  alltrains = new ArrayList <Trains>();
 				          alltrains.addAll(Train.getRedTrain());
@@ -133,6 +120,7 @@ public class CTCOfficeUI {
 				          Line.updateTrainList(alltrains);
 			  		Trains newtrain = Train.getGreenTrain().get(Train.getGreenTrain().size()-1);
 			  		  circuit.makeNewTrain( newtrain.getID(), newtrain.getBlockGrade(), 0, newtrain.getSpeed(), newtrain.getAuthority(), "Green", newtrain.getBlockNum());
+			  		CTCTCint.makeNewTrain(newtrain.getID(), newtrain.getBlockSpeedLim(), newtrain.getTrainSchedule().get(0).getStation(), false, 2);
 			  		  }
 				  	  Line.fireTableDataChanged();
 			      }

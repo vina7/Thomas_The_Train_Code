@@ -57,12 +57,7 @@ public class TrackController {
 			id = (activetrains.get(i)).getID();
 			nextStation = CTC_TC_Interface.getNextStation(id);
 			transponder = CTC_TC_Interface.getTransponder(id);
-			
-			
-			
-			
 		}
-
 		
 	}
 	
@@ -125,7 +120,8 @@ public class TrackController {
 					switchSource = currBlockNum;
 					switchArrayIndex = greenSwitchLocationBlockNums.indexOf(currBlockNum);
 					switchDestinations = greenSwitchOptions.get((int)switchArrayIndex);
-					
+					prevSection=allTrains.getPrevSection(id, line);
+					currSection = allTrains.getSection(id, line);
 					nextSection = route.getNextGreen(prevSection.toLowerCase(), currSection.toLowerCase());
 					System.out.println("gothere");
 					switches.setSwitchPosition(nextSection, switchSource, line);
@@ -138,7 +134,8 @@ public class TrackController {
 					switchSource = currBlockNum;
 					switchArrayIndex = redSwitchLocationBlockNums.indexOf(currBlockNum);
 					switchDestinations = redSwitchOptions.get((int)switchArrayIndex);
-					
+					prevSection=allTrains.getPrevSection(id, line);
+					currSection = allTrains.getSection(id, line);
 					nextSection = route.getNextRed(prevSection.toLowerCase(), currSection.toLowerCase());
 					
 					switches.setSwitchPosition(nextSection, switchSource, line);
@@ -152,29 +149,33 @@ public class TrackController {
 				
 				
 				if(line.equals("Green")){
+					if(greenSwitchOptions!=null && greenSwitchLocationBlockNums != null ) {
 					switchArrayIndex = greenSwitchDestinationBlockNums.indexOf(currBlockNum);
 					switchArrayIndex = Math.ceil((switchArrayIndex/2));
-					switchDestinations = greenSwitchOptions.get((int)switchArrayIndex);
-					switchSource = greenSwitchLocationBlockNums.get((int)switchArrayIndex);
-					
+					switchDestinations = greenSwitchOptions.get((int)switchArrayIndex-1);
+					switchSource = greenSwitchLocationBlockNums.get((int)switchArrayIndex-1);
+					prevSection=allTrains.getPrevSection(id, line);
+					currSection = allTrains.getSection(id, line);
 					nextSection = route.getNextGreen(prevSection.toLowerCase(), currSection.toLowerCase());
 					System.out.println("got here");
 					switches.setSwitchPosition(currSection, switchSource, line);
-
+					}
 
 
 					
 				}
 				else if (line.equalsIgnoreCase("Red")){
+					if(redSwitchOptions!=null && redSwitchLocationBlockNums != null ) {
 					switchArrayIndex = redSwitchDestinationBlockNums.indexOf(currBlockNum);
 					switchArrayIndex = Math.ceil((switchArrayIndex/2));
-					switchDestinations = redSwitchOptions.get((int)switchArrayIndex);
-					switchSource = redSwitchLocationBlockNums.get((int)switchArrayIndex);
-					
+					switchDestinations = redSwitchOptions.get((int)switchArrayIndex-1);
+					switchSource = redSwitchLocationBlockNums.get((int)switchArrayIndex-1);
+					prevSection=allTrains.getPrevSection(id, line);
+					currSection = allTrains.getSection(id, line);
 					nextSection = route.getNextRed(prevSection.toLowerCase(), currSection.toLowerCase());
 					
 					switches.setSwitchPosition(currSection, switchSource, line);
-
+					}
 
 				}
 				
@@ -316,7 +317,7 @@ public class TrackController {
 				authorizedBlocks.add(blockNum); //add current authorized block to list of authorized blocks. If a duplicate, 2 trains have been authorized for the same block. Current train's authority is dangerous. 
 				
 				for(int j = 0; j<(authorizedBlocks.size()-1); j++){
-					if(authorizedBlocks.get(j) == authorizedBlocks.get(authorizedBlocks.size())){ //a block is added to "authorized" in duplicate
+					if(authorizedBlocks.get(j) == authorizedBlocks.get(authorizedBlocks.size()-1)){ //a block is added to "authorized" in duplicate
 						badAuthority = true;
 					}
 				}
