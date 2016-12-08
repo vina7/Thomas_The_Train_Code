@@ -38,8 +38,8 @@ public class CTC_TC_Trains {
 	  this.transponder = transponder;
   }
   public boolean getTransponder(){
-	  boolean temp = transponder;
-	  transponder =false;
+	  boolean temp = this.transponder;
+	  this.transponder =false;
 	  return temp;
   }
   

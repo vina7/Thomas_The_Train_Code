@@ -2,6 +2,8 @@ package CTC_office;
 
 import java.util.ArrayList;
 
+import Interface.CTC_TC_Trains;
+import Interface.CTCandTrackControllerInterface;
 import Interface.Route;
 import Interface.TrackCircuit;
 
@@ -9,7 +11,7 @@ public class CheckNewBlock {
   public CheckNewBlock(){
 	  
   }
-  public AllTrains  check(TrackCircuit circuit,int ID, AllTrains train, AllTrackBlock Blocks, CTCMapUI map, boolean mode){
+  public AllTrains  check(TrackCircuit circuit,int ID, AllTrains train, AllTrackBlock Blocks, CTCMapUI map, boolean mode, CTCandTrackControllerInterface TCinterface){
 	  Route ourroute = new Route();
 	  SetDestination dest = new SetDestination();
 	  if(!(Blocks.getClosed(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine()),train.getTrainSchedule(ID).get(0).getLine()))){
@@ -67,8 +69,7 @@ public class CheckNewBlock {
 			    }
 			    
 		  }
-		  train= dest.checkPastDestionation(ID, train, Blocks, circuit.getDirection(ID));
-		  System.out.println(train.getStation(ID, train.getTrainSchedule(ID).get(0).getLine()));
+		  train= dest.checkPastDestionation(ID, train, Blocks, circuit.getDirection(ID), TCinterface );
 		  train.setBlockGrade(Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getBlockGrade(), ID, train.getTrainSchedule(ID).get(0).getLine());
 		  train.setBlockLen(Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getBlockLen(), ID, train.getTrainSchedule(ID).get(0).getLine());
 		  train.setElevation(Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getElevation(), ID, train.getTrainSchedule(ID).get(0).getLine());
@@ -91,6 +92,11 @@ public class CheckNewBlock {
 	  }
 	  }
 	  train.setDisplaySpeed((int)(circuit.getDisplayDisplacement(ID)*2.23), ID, train.getTrainSchedule(ID).get(0).getLine());
+	  if(train.getDisplaySpeed(ID, train.getTrainSchedule(ID).get(0).getLine()) <=0){
+		  train.setStatus("Stopped", ID, train.getTrainSchedule(ID).get(0).getLine());
+	  } else {
+		  train.setStatus("Good", ID, train.getTrainSchedule(ID).get(0).getLine());
+	  }
 	  return train;
   }
 }

@@ -12,7 +12,7 @@ public class CTC_Office {
 	private CTCOfficeLoginScreen LoginScreen;
 	private CTCMapUI Mapwindow;
 	private ClosedRails closerails;
-	private CTCandTrackControllerInterface ctctcint;
+	private CTCandTrackControllerInterface ctctcint = CTCandTrackControllerInterface.getInstance(false);
 	private RailwayCrossings railways;
 	private Switches switching = Switches.getInstance(false);
 	private TrackCircuit circuit = TrackCircuit.getInstance(false);
@@ -31,6 +31,12 @@ public class CTC_Office {
 		CTCOfficeUI Mainwindow;
 		try
 		{
+			 myself.LoginScreen =new CTCOfficeLoginScreen();
+			   myself.LoginScreen.setSize(450, 300);
+			   myself.LoginScreen.setVisible(true);
+			   while(myself.LoginScreen.isDisplayable()){
+			     System.out.print("");
+			   }
 			mapwindow = new CTCMapUI();
 			Mainwindow= new CTCOfficeUI(myself.train,myself.Blocks,myself, myself.circuit, mapwindow);
 		
@@ -40,23 +46,27 @@ public class CTC_Office {
 			ArrayList <Trains> redlinetrains = myself.train.getRedTrain();
 			for(int i = 0; i<redlinetrains.size();i++){
 				mapwindow.updateColor(redlinetrains.get(i).getSection(),redlinetrains.get(i).getPrevSection() , "Red", redlinetrains.get(i).getColor());
-				myself.train=myself.newBlock.check(myself.circuit, redlinetrains.get(i).getID(), myself.train, myself.Blocks, mapwindow, manualmode);
+				myself.train=myself.newBlock.check(myself.circuit, redlinetrains.get(i).getID(), myself.train, myself.Blocks, mapwindow, manualmode, myself.ctctcint);
 				myself.circuit.setAuthority(myself.train.getAuthority(redlinetrains.get(i).getID(), "Red"), redlinetrains.get(i).getID());
 				myself.circuit.setCurBlock(myself.train.getBlockNum(redlinetrains.get(i).getID(), "Red"), redlinetrains.get(i).getID());
 				myself.circuit.setGrade(myself.train.getBlockGrade(redlinetrains.get(i).getID(), "Red"), redlinetrains.get(i).getID());
 				myself.circuit.setSpeed(myself.train.getSpeed(redlinetrains.get(i).getID(), "Red"), redlinetrains.get(i).getID());
-				
+				myself.ctctcint.setBlockSpeedLim(redlinetrains.get(i).getID(), myself.train.getBlockSpeedLim(redlinetrains.get(i).getID(), "Red"));
+				myself.ctctcint.setNextDestination(redlinetrains.get(i).getID(), myself.train.getDestBlock(redlinetrains.get(i).getID(), "Red"));
+				myself.ctctcint.setNextStation(redlinetrains.get(i).getID(), myself.train.getStation(redlinetrains.get(i).getID(), "Red"));
 			}
 			Mainwindow.updateTrains(myself.train);
 			ArrayList <Trains> greenlinetrains = myself.train.getGreenTrain();
 			for(int i = 0; i<greenlinetrains.size();i++){
 				mapwindow.updateColor(greenlinetrains.get(i).getSection(),greenlinetrains.get(i).getPrevSection() , "Green", greenlinetrains.get(i).getColor());
-				myself.train=myself.newBlock.check(myself.circuit, greenlinetrains.get(i).getID(), myself.train, myself.Blocks, mapwindow, manualmode);
+				myself.train=myself.newBlock.check(myself.circuit, greenlinetrains.get(i).getID(), myself.train, myself.Blocks, mapwindow, manualmode, myself.ctctcint);
 				myself.circuit.setAuthority(myself.train.getAuthority(greenlinetrains.get(i).getID(), "Green"), greenlinetrains.get(i).getID());
 				myself.circuit.setCurBlock(myself.train.getBlockNum(greenlinetrains.get(i).getID(), "Green"), greenlinetrains.get(i).getID());
 				myself.circuit.setGrade(myself.train.getBlockGrade(greenlinetrains.get(i).getID(), "Green"), greenlinetrains.get(i).getID());
 				myself.circuit.setSpeed(myself.train.getSpeed(greenlinetrains.get(i).getID(), "Green"), greenlinetrains.get(i).getID());
-				
+				myself.ctctcint.setBlockSpeedLim(greenlinetrains.get(i).getID(), myself.train.getBlockSpeedLim(greenlinetrains.get(i).getID(), "Green"));
+				myself.ctctcint.setNextDestination(greenlinetrains.get(i).getID(), myself.train.getDestBlock(greenlinetrains.get(i).getID(), "Green"));
+				myself.ctctcint.setNextStation(greenlinetrains.get(i).getID(), myself.train.getStation(greenlinetrains.get(i).getID(), "Green"));
 			}
 			Mainwindow.updateTrains(myself.train);
 			myself.Blocks = myself.switching.getupdatedBlock();

@@ -206,11 +206,20 @@ public class CTCOfficeUI {
 		          int id = (int) table.getValueAt(row, 2);
 		          SetTrainAuthority advisedauthority = new SetTrainAuthority();
 		          advisedauthority.setAuthority(Train, id, Integer.parseInt(authority), mode);
-		          //table.setValueAt(Integer.parseInt(authority), row, column);
+
 		          }
 		        if(column== 4){
 		          String block = JOptionPane.showInputDialog(table, "Set destination block");
-		          //table.setValueAt(Integer.parseInt(block), row, column);
+		          SetDestination dest = new SetDestination();
+		          int id = (int) table.getValueAt(row, 2);
+		          String tline = (String) table.getValueAt(row, 1);
+		          int BlockNum =0;
+		          try{
+		        	  BlockNum = Integer.parseInt(block);
+		          } catch(Exception t){
+		        	  BlockNum = Blocks.getBlockNum(block, tline );
+		          }
+		          dest.setManualDestination(id, BlockNum, mode, Train, Blocks);
 		          }
 		        if(column== 7){
 		          String retire= JOptionPane.showInputDialog(table, "Retire Train (true/false)?");
