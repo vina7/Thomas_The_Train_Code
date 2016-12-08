@@ -16,8 +16,8 @@ public class TrackCircuit {
 		  }
 		  return instance;
 	  }
-	public void makeNewTrain(int ID, double Grade, double Displacement, int Speed, int Authority, String Line, int CurBlock){
-		TrackCircuitTrainInfo newtrain = new TrackCircuitTrainInfo(ID,Grade, Displacement, Speed, Authority, Line, CurBlock);
+	public void makeNewTrain(int ID, double Grade, double Displacement, int Speed, int Authority, String Line, int CurBlock, boolean reversedirection){
+		TrackCircuitTrainInfo newtrain = new TrackCircuitTrainInfo(ID,Grade, Displacement, Speed, Authority, Line, CurBlock, reversedirection);
 		activetrains.add(newtrain);
 	}
 	public void setCurBlock(int CurBlock, int ID){
@@ -42,6 +42,14 @@ public class TrackCircuit {
 	  public double getGrade(int ID){
 		  TrackCircuitTrainInfo temp = activetrains.get(ID);
 		  return temp.getGrade();
+	  }
+	  public void setDirection(boolean reversedirection,int ID){
+		  TrackCircuitTrainInfo temp = activetrains.get(ID);
+		  temp.setDirection(reversedirection);
+	  }
+	  public boolean getDirection(int ID){
+		  TrackCircuitTrainInfo temp = activetrains.get(ID);
+		  return temp.getDirection();
 	  }
 	  public void addDisplacement(double Displacement,int ID){
 		  TrackCircuitTrainInfo temp = activetrains.get(ID);

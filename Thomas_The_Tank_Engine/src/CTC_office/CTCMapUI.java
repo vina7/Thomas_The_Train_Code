@@ -274,7 +274,7 @@ public class CTCMapUI {
 			for (ShapeItem item : shapes) {	 
 		           if(item.getID().equalsIgnoreCase(temp)){
 		        	   
-		        	   if(!item.getColor().equals(Color.GREEN))
+		        	   if((!item.getColor().equals(Color.GREEN))&&(!item.getColor().equals(color)))
 					   {
 						   item.setColor(Color.BLACK);
 				             frame.repaint();
@@ -294,7 +294,7 @@ public class CTCMapUI {
 			String temp2 = "R"+PrevSection;
 			for (ShapeItem item : shapes) {
 				  if(item.getID().equalsIgnoreCase(temp)){
-					  if(!item.getColor().equals(Color.RED))
+					  if((!item.getColor().equals(Color.RED))&&(!item.getColor().equals(color)))
 					   {
 						   item.setColor(Color.BLACK);
 				             frame.repaint();

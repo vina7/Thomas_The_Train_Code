@@ -7,10 +7,10 @@ import javax.sound.sampled.Line;
 import javax.swing.table.AbstractTableModel;
 
 public class SwitchesModel extends AbstractTableModel {		  
-		  private AllTrackBlock Blocks;
+		  private AllTrackBlock Blocks = null;
 		  
 		  private final String[] columnNames = new String[] {
-			"Line", "Section","Block", "Block Length", "Block Grade", "Speed Limit", "Infrastructure","Switch Positon(Section)","Railroad Crossing","Elevation"
+			"Line", "Section","Block", "Block Length", "Block Grade", "Speed Limit", "Infrastructure","Switch Positon","Railroad Crossing","Elevation"
 		  };
 		  private final Class[] columnClass = new Class[] {
 		      String.class,String.class, Integer.class,Integer.class, Double.class, Double.class, String.class, String.class,  String.class, Double.class
@@ -45,7 +45,7 @@ public class SwitchesModel extends AbstractTableModel {
 		  public int getRowCount()
 		  {
 		    int count=0;
-		    if (Blocks.getRedTrack()!= null && Blocks.getGreenTrack()!= null ){
+		    if (Blocks!= null ){
 		    count = Blocks.getRedTrack().size()+Blocks.getGreenTrack().size();
 		    }
 		     return count;
@@ -120,15 +120,7 @@ public class SwitchesModel extends AbstractTableModel {
 		    
 		      return null;
 		  }
-		  /*@Override
-		  public void setValueAt(Object aValue, int rowIndex, int columnIndex)
-		  {
-		      LineInfo row = LineList.get(rowIndex);
-		      if(3 == columnIndex) {
-		          row.setSwitchPosition((String) aValue);
-		      }
-		     
-		  }*/
+		
 		  
 		  
 		

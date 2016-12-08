@@ -28,20 +28,20 @@ public class AllTrains {
   }
   public void addTrain(Color color, int ID, int Speed, int Authority,String Direction, String PrevSection, String Section, 
 			int BlockNum, int BlockLen, double BlockGrade,int BlockSpeedLim, double Elevation, 
-			boolean Retire, String Status, String LastStation, int DestBlock, List <ScheduleInfo> TrainSchedule, 
-			boolean UserSetSpeed, boolean UserSetDest, int DisplaySpeed){
+			boolean Retire, String Status, String Station, int DestBlock, List <ScheduleInfo> TrainSchedule, 
+			boolean UserSetSpeed, boolean UserSetDest, int DisplaySpeed, int StationNum){
 	       if(TrainSchedule.get(0).getLine().equals("Green")){
 	    	   Trains newTrain =new Trains(color, ID, Speed, Authority, Direction, PrevSection, Section, 
 	    				BlockNum,  BlockLen,  BlockGrade, BlockSpeedLim, Elevation, 
-	    				 Retire,  Status,  LastStation,  DestBlock, TrainSchedule, 
-	    				UserSetSpeed,  UserSetDest, DisplaySpeed);
+	    				 Retire,  Status,  Station,  DestBlock, TrainSchedule, 
+	    				UserSetSpeed,  UserSetDest, DisplaySpeed, StationNum);
 	    	   GreenTrain.add(newTrain);
 	    	   
 	       } else if (TrainSchedule.get(0).getLine().equals("Red")){
 	    	   Trains newTrain =new Trains(color, ID, Speed, Authority, Direction, PrevSection,  Section, 
 	    				BlockNum,  BlockLen,  BlockGrade, BlockSpeedLim, Elevation, 
-	    				 Retire,  Status,  LastStation,  DestBlock, TrainSchedule, 
-	    				UserSetSpeed,  UserSetDest, DisplaySpeed);
+	    				 Retire,  Status,  Station,  DestBlock, TrainSchedule, 
+	    				UserSetSpeed,  UserSetDest, DisplaySpeed, StationNum);
 	    	   RedTrain.add(newTrain);
 	       }
 	  
@@ -315,24 +315,43 @@ public class AllTrains {
 		  }
 		return true;
 	}
-	public String getLastStation(int ID, String Line){
+	public String getStation(int ID, String Line){
 		Trains temp;
 		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
-					  return temp.getLastStation();
+					  return temp.getStation();
 				  }
 			  }
 		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
-					  return temp.getLastStation();
+					  return temp.getStation();
 				  }
 			  }
 		  }
 		return null;
+	}
+	public int getStationNum(int ID, String Line){
+		Trains temp;
+		  if (Line.equals("Green")){
+			  for(int i =0; i<GreenTrain.size(); i++){
+				  temp = GreenTrain.get(i);
+				  if(temp.getID()==ID){
+					  return temp.getStationNum();
+				  }
+			  }
+		  } else if(Line.equals("Red")){
+			  for(int i =0; i<RedTrain.size(); i++){
+				  temp = RedTrain.get(i);
+				  if(temp.getID()==ID){
+					  return temp.getStationNum();
+				  }
+			  }
+		  }
+		return -1;
 	}
 	public void setStatus(String Status, int ID, String Line){
 		Trains temp;
@@ -354,14 +373,14 @@ public class AllTrains {
 	}
 	public int getDestBlock(int ID, String Line){
 		Trains temp;
-		  if (Line.equals("Green")){
+		  if (Line.equalsIgnoreCase("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getDestBlock();
 				  }
 			  }
-		  } else if(Line.equals("Red")){
+		  } else if(Line.equalsIgnoreCase("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
@@ -401,6 +420,25 @@ public class AllTrains {
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
 					  return temp.getUserSetSpeed();
+				  }
+			  }
+		  }
+		return false;
+	}
+	public boolean getUserSetAth(int ID, String Line){
+		Trains temp;
+		  if (Line.equals("Green")){
+			  for(int i =0; i<GreenTrain.size(); i++){
+				  temp = GreenTrain.get(i);
+				  if(temp.getID()==ID){
+					  return temp.getUserSetAth();
+				  }
+			  }
+		  } else if(Line.equals("Red")){
+			  for(int i =0; i<RedTrain.size(); i++){
+				  temp = RedTrain.get(i);
+				  if(temp.getID()==ID){
+					  return temp.getUserSetAth();
 				  }
 			  }
 		  }
@@ -641,20 +679,38 @@ public class AllTrains {
 			  }
 		  }
 	}
-	public void setLastStation(String LastStation, int ID, String Line){
+	public void setStation(String Station, int ID, String Line){
 		Trains temp;
 		  if (Line.equals("Green")){
 			  for(int i =0; i<GreenTrain.size(); i++){
 				  temp = GreenTrain.get(i);
 				  if(temp.getID()==ID){
-					  temp.setLastStation(LastStation);
+					  temp.setStation(Station);
 				  }
 			  }
 		  } else if(Line.equals("Red")){
 			  for(int i =0; i<RedTrain.size(); i++){
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
-					  temp.setLastStation(LastStation);
+					  temp.setStation(Station);
+				  }
+			  }
+		  }
+	}
+	public void setStationNum(int StationNum, int ID, String Line){
+		Trains temp;
+		  if (Line.equals("Green")){
+			  for(int i =0; i<GreenTrain.size(); i++){
+				  temp = GreenTrain.get(i);
+				  if(temp.getID()==ID){
+					  temp.setStationNum(StationNum);
+				  }
+			  }
+		  } else if(Line.equals("Red")){
+			  for(int i =0; i<RedTrain.size(); i++){
+				  temp = RedTrain.get(i);
+				  if(temp.getID()==ID){
+					  temp.setStationNum(StationNum);
 				  }
 			  }
 		  }
@@ -709,6 +765,24 @@ public class AllTrains {
 				  temp = RedTrain.get(i);
 				  if(temp.getID()==ID){
 					  temp.setUserSetSpeed(UserSetSpeed);
+				  }
+			  }
+		  }
+	}
+	public void setUserSetAth(boolean UserSetAuth, int ID, String Line){
+		Trains temp;
+		  if (Line.equals("Green")){
+			  for(int i =0; i<GreenTrain.size(); i++){
+				  temp = GreenTrain.get(i);
+				  if(temp.getID()==ID){
+					  temp.setUserSetAth(UserSetAuth);
+				  }
+			  }
+		  } else if(Line.equals("Red")){
+			  for(int i =0; i<RedTrain.size(); i++){
+				  temp = RedTrain.get(i);
+				  if(temp.getID()==ID){
+					  temp.setUserSetAth(UserSetAuth);
 				  }
 			  }
 		  }

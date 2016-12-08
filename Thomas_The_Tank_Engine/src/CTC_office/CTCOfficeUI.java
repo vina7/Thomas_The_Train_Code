@@ -19,6 +19,7 @@ import javax.swing.SwingUtilities;
 import Interface.CTCandTrackControllerInterface;
 import Interface.Switches;
 import Interface.TrackCircuit;
+import Overall_Sys.TimeClass;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -31,8 +32,11 @@ public class CTCOfficeUI {
 	private JFrame frame;
 	private JTable table;
 	private JTable table2;
+	private JTable table3;
 	private MainLineTableModel Line=null;
 	private SwitchesModel switchs=null;
+	private BrokenRailsModel BTracks=null;
+	private TimeClass timer = TimeClass.getInstance(false);
 	private AllTrains Train;
 	private AllTrackBlock Blocks;
 	private TrainScheduleFileParser TSparser = new TrainScheduleFileParser(true);
@@ -61,7 +65,7 @@ public class CTCOfficeUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1173, 686);
+		frame.setBounds(100, 100, 1188, 792);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		JToggleButton tglbtnNewToggleButton = new JToggleButton("Manual Mode?");
@@ -71,6 +75,12 @@ public class CTCOfficeUI {
 			        mode.updateManualMode(true);
 			      } else if(e.getStateChange()==ItemEvent.DESELECTED){
 			    	  mode.updateManualMode(false);
+			    	  for(int i=0;i<Train.getRedTrain().size();i++){
+			    		  Train.setUserSetDest(false, Train.getRedTrain().get(i).getID(), "Red");
+			    	  }
+			    	  for(int i=0;i<Train.getGreenTrain().size();i++){
+			    		  Train.setUserSetDest(false, Train.getGreenTrain().get(i).getID(), "Green");
+			    	  }
 			      }
 			}
 		});
@@ -111,7 +121,7 @@ public class CTCOfficeUI {
                       Line.updateTrainList(alltrains);
 			  		  Trains newtrain = Train.getRedTrain().get(Train.getRedTrain().size()-1);
 			  		  
-			  		  circuit.makeNewTrain( newtrain.getID(), newtrain.getBlockGrade(), 0, newtrain.getSpeed(), newtrain.getAuthority(), "Red", newtrain.getBlockNum());
+			  		  circuit.makeNewTrain( newtrain.getID(), newtrain.getBlockGrade(), 0, newtrain.getSpeed(), newtrain.getAuthority(), "Red", newtrain.getBlockNum(), false);
 			  		 CTCTCint.makeNewTrain(newtrain.getID(), newtrain.getBlockSpeedLim(), newtrain.getTrainSchedule().get(0).getStation(), false, 7);
 			  		  } else if (file.getPath().equals("/home/van/workspace5/Thomas_The_Tank_Engine/Green_Line_Schedule.csv")){
 			  			List <Trains>  alltrains = new ArrayList <Trains>();
@@ -119,7 +129,7 @@ public class CTCOfficeUI {
 				          alltrains.addAll(Train.getGreenTrain());
 				          Line.updateTrainList(alltrains);
 			  		Trains newtrain = Train.getGreenTrain().get(Train.getGreenTrain().size()-1);
-			  		  circuit.makeNewTrain( newtrain.getID(), newtrain.getBlockGrade(), 0, newtrain.getSpeed(), newtrain.getAuthority(), "Green", newtrain.getBlockNum());
+			  		  circuit.makeNewTrain( newtrain.getID(), newtrain.getBlockGrade(), 0, newtrain.getSpeed(), newtrain.getAuthority(), "Green", newtrain.getBlockNum(), false);
 			  		CTCTCint.makeNewTrain(newtrain.getID(), newtrain.getBlockSpeedLim(), newtrain.getTrainSchedule().get(0).getStation(), false, 2);
 			  		  }
 				  	  Line.fireTableDataChanged();
@@ -128,7 +138,22 @@ public class CTCOfficeUI {
 		});
 		btnNewButton.setBounds(231, 12, 189, 55);
 		frame.getContentPane().add(btnNewButton);
-		
+		JButton btnBrakeRail = new JButton("Brake Rail");
+		btnBrakeRail.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String Line1 = JOptionPane.showInputDialog(btnBrakeRail, "Which Line?");
+				String BlockNumber = JOptionPane.showInputDialog(btnBrakeRail, "Which Block Number");
+			 if((Line1.equalsIgnoreCase("Red") || Line1.equalsIgnoreCase("Green"))&& (Integer.parseInt(BlockNumber)<152 && Integer.parseInt(BlockNumber)>0)){
+				Blocks.setBroken(true, Integer.parseInt(BlockNumber), Line1);
+				BTracks.updateBlocks(Blocks);
+				BTracks.fireTableDataChanged();
+				}
+			}
+		});
+		btnBrakeRail.setBounds(486, 12, 218, 55);
+		frame.getContentPane().add(btnBrakeRail);
+		frame.setVisible(true);
 		JButton btnNewButton_1 = new JButton("<html>Import</br> Track Layout</html>");
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
@@ -140,8 +165,7 @@ public class CTCOfficeUI {
 			          File file = fc.getSelectedFile();
 			          
 			          Blocks=TMparser.Parser(file.getPath(), Blocks);
-			          temp.updateTrack(Blocks);
-			          SwitchesModel switchs =null;
+			          temp.updateTrack(Blocks);			       
 			          if(file.getPath().equals("/home/van/workspace5/Thomas_The_Tank_Engine/Red_Track_Layout.csv")){
 			        	  Blocks=switchinterface.updateBlocks(Blocks, "Red");
 			        	  switchs.updateBlocks(Blocks);
@@ -172,10 +196,16 @@ public class CTCOfficeUI {
 		        int column = target.getSelectedColumn();
 		        if(column== 3){
 		        String speed = JOptionPane.showInputDialog(table, "Set new Speed (mph)");
-		        //table.setValueAt(Integer.parseInt(speed), row, column);
+		        int id = (int) table.getValueAt(row, 2);
+		        SetAdvisedSpeed advisedspeed = new SetAdvisedSpeed();
+		        Train = advisedspeed.setSpeed(Train, id, Integer.parseInt(speed), mode);
+		        
 		        }
 		        if(column== 5){
 		          String authority= JOptionPane.showInputDialog(table, "Set new Authority (ft)");
+		          int id = (int) table.getValueAt(row, 2);
+		          SetTrainAuthority advisedauthority = new SetTrainAuthority();
+		          advisedauthority.setAuthority(Train, id, Integer.parseInt(authority), mode);
 		          //table.setValueAt(Integer.parseInt(authority), row, column);
 		          }
 		        if(column== 4){
@@ -194,9 +224,10 @@ public class CTCOfficeUI {
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(12, 127, 1134, 159);
+		scrollPane.setBounds(12, 94, 1162, 159);
 		frame.getContentPane().add(scrollPane);
 		frame.setVisible(true);
+		
 		switchs = new SwitchesModel(Blocks);
 		table2 = new JTable(switchs);
 		table2.setBounds(31, 105, 354, 32);
@@ -208,13 +239,42 @@ public class CTCOfficeUI {
 		JScrollPane scrollPane2 = new JScrollPane(table2);
 		scrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);	
-		scrollPane2.setBounds(12, 302, 1134, 323);
+		scrollPane2.setBounds(15, 265, 1152, 299);
 		frame.getContentPane().add(scrollPane2);
 		
-		JButton btnBrakeRail = new JButton("Brake Rail");
-		btnBrakeRail.setBounds(486, 12, 218, 55);
-		frame.getContentPane().add(btnBrakeRail);
-		frame.setVisible(true);
+		BTracks = new BrokenRailsModel(Blocks);
+		table3 = new JTable(BTracks);
+		table3.setBounds(31, 105, 354, 32);
+		table3.setFocusable(false);
+		table3.setAutoscrolls(false);
+		table3.setCellSelectionEnabled(false);
+		table3.setColumnSelectionAllowed(false);
+		table3.setRowSelectionAllowed(false);
+		table3.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent e) {
+		    	if (e.getClickCount() == 2) {
+		    		JTable target = (JTable)e.getSource();
+			        int row = target.getSelectedRow();
+			        int column = target.getSelectedColumn();
+			        if(column== 3){
+				          String CloseRail= JOptionPane.showInputDialog(table3, "Close Rail (true/false)?");
+				          String blockline = (String) table3.getValueAt(row, 0);
+				          int blocknum = (int) table3.getValueAt(row, 1);
+				          if(Boolean.parseBoolean(CloseRail)){
+				          Blocks.setClosed(Boolean.parseBoolean(CloseRail), blocknum, blockline);
+				          Blocks.setClosedTime(timer.getTime(), blocknum, blockline);
+				          BTracks.updateBlocks(Blocks);
+				  		  BTracks.fireTableDataChanged();
+				          }
+				          
+			        }
+		    	}
+		    }});
+		JScrollPane scrollPane3 = new JScrollPane(table3);
+		scrollPane3.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane3.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);	
+		scrollPane3.setBounds(22, 576, 1152, 178);
+		frame.getContentPane().add(scrollPane3);
 		
 	}
 	public void updateSwitchTable(AllTrackBlock Blocks){
@@ -228,5 +288,16 @@ public class CTCOfficeUI {
         alltrains.addAll(Train.getGreenTrain());
 		Line.updateTrainList(alltrains);
 		Line.fireTableDataChanged();
+	}
+	public void updateBrokenRails(AllTrackBlock Blocks){
+		this.Blocks =Blocks;
+		BTracks.updateBlocks(Blocks);
+		BTracks.fireTableDataChanged();
+		}
+	public boolean getMode(){
+		return this.mode.verify();
+	}
+	public AllTrackBlock getupdatedBlocks(){
+		return Blocks;
 	}
 }

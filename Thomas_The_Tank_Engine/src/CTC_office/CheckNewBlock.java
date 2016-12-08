@@ -9,8 +9,10 @@ public class CheckNewBlock {
   public CheckNewBlock(){
 	  
   }
-  public AllTrains  check(TrackCircuit circuit,int ID, AllTrains train, AllTrackBlock Blocks, CTCMapUI map){
+  public AllTrains  check(TrackCircuit circuit,int ID, AllTrains train, AllTrackBlock Blocks, CTCMapUI map, boolean mode){
 	  Route ourroute = new Route();
+	  SetDestination dest = new SetDestination();
+	  if(!(Blocks.getClosed(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine()),train.getTrainSchedule(ID).get(0).getLine()))){
 	  if(circuit.getDisplacement(ID)>= train.getBlockLen(ID, train.getTrainSchedule(ID).get(0).getLine())){
 		  ArrayList <TrackBlock> Track = null;
 		  if (train.getTrainSchedule(ID).get(0).getLine().equals("Green")){
@@ -24,7 +26,7 @@ public class CheckNewBlock {
 		    	train.setBlockNum(ourroute.getGreenEntryBlock(train.getSection(ID, "Green"), NextSection), ID, "Green");
 		    	train.setPrevSection(train.getSection(ID, "Green"), ID, "Green");
 		    	train.setSection(NextSection, ID, "Green");
-		    	map.updateColor(train.getSection(ID, "Green"),train.getPrevSection(ID, "Green"), "Green", train.getColor(ID,"Green"));
+		    	 map.updateColor(train.getSection(ID, "Green"),train.getPrevSection(ID, "Green"), "Green", train.getColor(ID,"Green"));
 		    	
 		    } else {
 		    	if(direction){
@@ -35,7 +37,11 @@ public class CheckNewBlock {
 		    		train.setBlockNum(train.getBlockNum(ID, "Green")+1, ID, "Green");
 		    	}
 		    }
-		    
+		    if(direction){
+		    	circuit.setDirection(true, ID);
+		    }else{
+		    	circuit.setDirection(false, ID);
+		    }
 		  } else if (train.getTrainSchedule(ID).get(0).getLine().equals("Red")){
 			  Track = Blocks.getRedTrack();
 			    int curEntry = ourroute.getRedEntryBlock(train.getPrevSection(ID, "Red"),train.getSection(ID, "Red") );
@@ -46,7 +52,7 @@ public class CheckNewBlock {
 			    	train.setBlockNum(ourroute.getRedEntryBlock(train.getSection(ID, "Red"), NextSection), ID, "Red");
 			    	train.setPrevSection(train.getSection(ID, "Red"), ID, "Red");
 					train.setSection(NextSection, ID, "Red");
-			    	map.updateColor(train.getSection(ID, "Red"),train.getPrevSection(ID, "Red"), "Red", train.getColor(ID,"Red"));
+					 map.updateColor(train.getSection(ID, "Red"),train.getPrevSection(ID, "Red"), "Red", train.getColor(ID,"Red"));
 			    } else {
 			    	if(direction){
 			    		train.setBlockNum(train.getBlockNum(ID, "Red")-1, ID, "Red");
@@ -54,17 +60,35 @@ public class CheckNewBlock {
 			    		train.setBlockNum(train.getBlockNum(ID, "Red")+1, ID, "Red");
 			    	}
 			    }
+			    if(direction){
+			    	circuit.setDirection(true, ID);
+			    }else{
+			    	circuit.setDirection(false, ID);
+			    }
+			    
 		  }
-		  
+		  train= dest.checkPastDestionation(ID, train, Blocks, circuit.getDirection(ID));
+		  System.out.println(train.getStation(ID, train.getTrainSchedule(ID).get(0).getLine()));
 		  train.setBlockGrade(Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getBlockGrade(), ID, train.getTrainSchedule(ID).get(0).getLine());
 		  train.setBlockLen(Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getBlockLen(), ID, train.getTrainSchedule(ID).get(0).getLine());
 		  train.setElevation(Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getElevation(), ID, train.getTrainSchedule(ID).get(0).getLine());
 		  train.setSection(Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getSection(), ID, train.getTrainSchedule(ID).get(0).getLine());
 		  train.setBlockSpeedLim((int)Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getSpeedLimit(), ID, train.getTrainSchedule(ID).get(0).getLine());
 		  train.setDirection(Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getArrowDirection(), ID, train.getTrainSchedule(ID).get(0).getLine());
-		  train.setSpeed((int) (Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getSpeedLimit()), ID, train.getTrainSchedule(ID).get(0).getLine());
+		  if(!(train.getUserSetSpeed(ID, train.getTrainSchedule(ID).get(0).getLine())&& mode)){
+	      train.setSpeed((int) (Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getSpeedLimit()), ID, train.getTrainSchedule(ID).get(0).getLine());
+		  }
+		  if(train.getSpeed(ID, train.getTrainSchedule(ID).get(0).getLine())==0){
+		    	
+		    	train.setSpeed((int) (Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getSpeedLimit()), ID, train.getTrainSchedule(ID).get(0).getLine());
+		    }
+		    if(Blocks.getClosed(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine()),train.getTrainSchedule(ID).get(0).getLine())){
+		    	train.setSpeed(0, ID, train.getTrainSchedule(ID).get(0).getLine());
+		    }
+		    if(!(train.getUserSetAth(ID, train.getTrainSchedule(ID).get(0).getLine())&& mode)){
 		  train.setAuthority((int) (((Math.pow((Track.get(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())-1).getSpeedLimit())*.447,2))/(2*1.2))*3.3), ID, train.getTrainSchedule(ID).get(0).getLine());
-		  
+		    }
+	  }
 	  }
 	  train.setDisplaySpeed((int)(circuit.getDisplayDisplacement(ID)*2.23), ID, train.getTrainSchedule(ID).get(0).getLine());
 	  return train;

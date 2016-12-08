@@ -17,7 +17,6 @@ public class CTC_Office {
 	private Switches switching = Switches.getInstance(false);
 	private TrackCircuit circuit = TrackCircuit.getInstance(false);
 	private AllTrackBlock Blocks =AllTrackBlock.getInstance(true) ;
-	private BrokenRailDetection broke;
 	private CheckNewBlock newBlock = new CheckNewBlock();
 	private ScheduleInfo sinfo;
 	private SetDestination setD;
@@ -36,9 +35,12 @@ public class CTC_Office {
 			Mainwindow= new CTCOfficeUI(myself.train,myself.Blocks,myself, myself.circuit, mapwindow);
 		
 		while(true){
+			myself.Blocks= Mainwindow.getupdatedBlocks();
+			boolean manualmode = Mainwindow.getMode();
 			ArrayList <Trains> redlinetrains = myself.train.getRedTrain();
 			for(int i = 0; i<redlinetrains.size();i++){
-				myself.train=myself.newBlock.check(myself.circuit, redlinetrains.get(i).getID(), myself.train, myself.Blocks, mapwindow);
+				mapwindow.updateColor(redlinetrains.get(i).getSection(),redlinetrains.get(i).getPrevSection() , "Red", redlinetrains.get(i).getColor());
+				myself.train=myself.newBlock.check(myself.circuit, redlinetrains.get(i).getID(), myself.train, myself.Blocks, mapwindow, manualmode);
 				myself.circuit.setAuthority(myself.train.getAuthority(redlinetrains.get(i).getID(), "Red"), redlinetrains.get(i).getID());
 				myself.circuit.setCurBlock(myself.train.getBlockNum(redlinetrains.get(i).getID(), "Red"), redlinetrains.get(i).getID());
 				myself.circuit.setGrade(myself.train.getBlockGrade(redlinetrains.get(i).getID(), "Red"), redlinetrains.get(i).getID());
@@ -48,7 +50,8 @@ public class CTC_Office {
 			Mainwindow.updateTrains(myself.train);
 			ArrayList <Trains> greenlinetrains = myself.train.getGreenTrain();
 			for(int i = 0; i<greenlinetrains.size();i++){
-				myself.train=myself.newBlock.check(myself.circuit, greenlinetrains.get(i).getID(), myself.train, myself.Blocks, mapwindow);
+				mapwindow.updateColor(greenlinetrains.get(i).getSection(),greenlinetrains.get(i).getPrevSection() , "Green", greenlinetrains.get(i).getColor());
+				myself.train=myself.newBlock.check(myself.circuit, greenlinetrains.get(i).getID(), myself.train, myself.Blocks, mapwindow, manualmode);
 				myself.circuit.setAuthority(myself.train.getAuthority(greenlinetrains.get(i).getID(), "Green"), greenlinetrains.get(i).getID());
 				myself.circuit.setCurBlock(myself.train.getBlockNum(greenlinetrains.get(i).getID(), "Green"), greenlinetrains.get(i).getID());
 				myself.circuit.setGrade(myself.train.getBlockGrade(greenlinetrains.get(i).getID(), "Green"), greenlinetrains.get(i).getID());
@@ -65,7 +68,18 @@ public class CTC_Office {
 				Mainwindow.updateSwitchTable(myself.Blocks);
 			}
 		
-			
+			if(myself.Blocks.getBrokenRails()!=null){
+				ArrayList <BrokenTracks> Brokentracks =myself.Blocks.getBrokenRails();
+				for(int i=0; i<Brokentracks.size(); i++){
+					int overalltime = timer.getTime() - Brokentracks.get(i).getClosedTime();
+					if(Brokentracks.get(i).getClosed()){
+					if(Brokentracks.get(i).getTimeToFixRail()<overalltime){
+						myself.Blocks.removeBroken(false, Brokentracks.get(i).getBlockNum() , Brokentracks.get(i).getLine());
+						Mainwindow.updateBrokenRails(myself.Blocks);
+					}
+					}
+				}
+			}
 			
 			if(myself.mult==0){
 		try {

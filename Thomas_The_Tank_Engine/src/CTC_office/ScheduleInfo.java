@@ -4,16 +4,21 @@ public class ScheduleInfo {
   String Line;
   String Station;
   double Time;
-  public ScheduleInfo(String Line, String Station,double Time){
+  int BlockNum;
+  public ScheduleInfo(String Line, String Station,double Time, int BlockNum){
 	  this.Line= Line;
 	  this.Station =Station;
 	  this.Time = Time;
+	  this.BlockNum = BlockNum;
   }
   public String getLine(){
 	  return Line;
   }
   public String getStation(){
 	  return Station;
+  }
+  public int getBlockNum(){
+	  return BlockNum;
   }
   public double Time(){
 	  return Time;

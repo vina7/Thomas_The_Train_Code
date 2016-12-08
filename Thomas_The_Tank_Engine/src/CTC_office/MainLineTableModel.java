@@ -7,10 +7,10 @@ public class MainLineTableModel extends AbstractTableModel {
   
   private List<Trains> TrainList;
   private final String[] columnNames = new String[] {
-      "color","Line","ID","Speed (mph)", "Block Number","Authority (ft)","Direction","Retire", "Status"
+      "color","Line","ID","Speed (mph)", "Block Number","Authority (ft)","Direction", "Status"
   };
   private final Class[] columnClass = new Class[] {
-      Color.class,String.class, String.class, Integer.class, Integer.class, Integer.class, String.class, Boolean.class, String.class
+      Color.class,String.class, String.class, Integer.class, Integer.class, Integer.class, String.class, String.class
   };
 
   public MainLineTableModel(List<Trains> TrainList)
@@ -20,7 +20,6 @@ public class MainLineTableModel extends AbstractTableModel {
   public void updateTrainList(List<Trains> TrainList){
 	  this.TrainList = TrainList;
   }
-   
   @Override
   public String getColumnName(int column)
   {
@@ -71,28 +70,13 @@ public class MainLineTableModel extends AbstractTableModel {
       else if(6 == columnIndex) {
         return row.getDirection();
     }
-      else if(7 == columnIndex) {
-        return row.getRetire();
-    }
       else if(8 == columnIndex) {
         return row.getStatus();
     }
       return null;
   }
-  @Override
-  public void setValueAt(Object aValue, int rowIndex, int columnIndex)
-  {
-      Trains row = TrainList.get(rowIndex);
-      if(2 == columnIndex) {
-          row.setSpeed((int) aValue);
-      } else if(4 == columnIndex) {
-        row.setAuthority((int) aValue);
-    } else if(6 == columnIndex) {
-      row.setRetire((boolean) aValue);
-  } 
    
      
   }
   
   
-}

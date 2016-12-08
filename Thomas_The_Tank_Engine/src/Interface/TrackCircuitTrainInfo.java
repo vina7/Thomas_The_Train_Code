@@ -11,7 +11,8 @@ public class TrackCircuitTrainInfo {
   private int Authority;
   private String Line;
   private int CurBlock;
-  public TrackCircuitTrainInfo(int ID, double Grade, double Displacement, int Speed, int Authority, String Line, int CurBlock){
+  private boolean reversedirection;
+  public TrackCircuitTrainInfo(int ID, double Grade, double Displacement, int Speed, int Authority, String Line, int CurBlock, boolean reversedirection){
 	  this.ID= ID;
 	  this.Grade= Grade;
 	  this.Displacement=Displacement;
@@ -19,6 +20,7 @@ public class TrackCircuitTrainInfo {
 	  this.Authority = Authority;
 	  this.Line = Line;
 	  this.CurBlock = CurBlock;
+	  this.reversedirection = reversedirection;
   }
   public void setCurBlock(int CurBlock){
 		this.CurBlock = CurBlock;
@@ -61,6 +63,12 @@ public class TrackCircuitTrainInfo {
   public void setVerifiedSpeed(int Speed){
 	  this.Speed =Speed;
 	  verifiedS = true;
+  }
+  public boolean getDirection(){
+	  return reversedirection;
+  }
+  public void setDirection(boolean reversedirection){
+	  this.reversedirection =reversedirection;
   }
   public int getSpeed(){
 	  if (verifiedS == true){

@@ -16,17 +16,19 @@ public class Trains {
 	private int BlockSpeedLim;
 	private double Elevation;
 	private boolean Retire;
-	private String LastStation;
+	private String Station;
 	private String Status;
 	private int DestBlock;
 	private List <ScheduleInfo> TrainSchedule;
 	private boolean UserSetSpeed;
 	private boolean UserSetDest;
+	private boolean UserSetAuth;
 	private int DisplaySpeed;
+	private int StationNum;
 	public Trains(Color color, int ID, int Speed, int Authority,String Direction,String PrevSection, String Section, 
 			int BlockNum, int BlockLen, double BlockGrade,int BlockSpeedLim, double Elevation, 
-			boolean Retire, String Status, String LastStation, int DestBlock, List <ScheduleInfo> TrainSchedule, 
-			boolean UserSetSpeed, boolean UserSetDest, int DisplaySpeed){
+			boolean Retire, String Status, String Station, int DestBlock, List <ScheduleInfo> TrainSchedule, 
+			boolean UserSetSpeed, boolean UserSetDest, int DisplaySpeed, int StationNum){
 		this.color= color;
 		this.ID=ID;
 		this.Status = Status;
@@ -41,12 +43,13 @@ public class Trains {
 		this.BlockSpeedLim = BlockSpeedLim;
 		this.Elevation = Elevation;
 		this.Retire =Retire;
-		this.LastStation = LastStation;
+		this.Station = Station;
 		this.DestBlock = DestBlock;
 		this.TrainSchedule = TrainSchedule;
 		this.UserSetSpeed = UserSetSpeed;
 		this.UserSetDest = UserSetDest;
 		this.DisplaySpeed = DisplaySpeed;
+		this.StationNum = StationNum;
 	}
 	public Color getColor(){
        return color;
@@ -75,6 +78,7 @@ public class Trains {
 	public String getSection(){
 		return Section;
 	}
+	
 	public int getBlockNum(){
 		return BlockNum;
 	}
@@ -93,8 +97,11 @@ public class Trains {
 	public boolean getRetire(){
 		return Retire;
 	}
-	public String getLastStation(){
-		return LastStation;
+	public String getStation(){
+		return Station;
+	}
+	public int getStationNum(){
+		return StationNum;
 	}
 	public void setStatus(String Status){
 		this.Status= Status;
@@ -107,6 +114,9 @@ public class Trains {
 	}
 	public boolean getUserSetSpeed(){
 		return UserSetSpeed;
+	}
+	public boolean getUserSetAth(){
+		return UserSetAuth;
 	}
 	public boolean getUserSetDest(){
 		return UserSetDest;
@@ -147,8 +157,11 @@ public class Trains {
 	public void setRetire(boolean Retire){
 		this.Retire= Retire;
 	}
-	public void setLastStation(String LastStation){
-		this.LastStation= LastStation;
+	public void setStation(String Station){
+		this.Station= Station;
+	}
+	public void setStationNum(int StationNum){
+		this.StationNum = StationNum;
 	}
 	public void setDestBlock(int DestBlock){
 		this.DestBlock = DestBlock;
@@ -158,6 +171,9 @@ public class Trains {
 	}
 	public void setUserSetSpeed(boolean UserSetSpeed){
 		this.UserSetSpeed= UserSetSpeed;
+	}
+	public void setUserSetAth(boolean UserSetAuth){
+		this.UserSetAuth=UserSetAuth;
 	}
 	public void setUserSetDest(boolean UserSetDest){
 		this.UserSetDest= UserSetDest;

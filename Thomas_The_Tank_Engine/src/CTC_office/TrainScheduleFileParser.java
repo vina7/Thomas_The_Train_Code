@@ -26,9 +26,11 @@ public class TrainScheduleFileParser {
 		  while ((line = br.readLine()) != null) {
 
               String[] info = line.split(",");
-              ScheduleInfo schedule = new ScheduleInfo(info[0],info[1],Double.parseDouble(info[2]));
               
-              TrainSchedule.add(schedule);
+                  ScheduleInfo schedule = new ScheduleInfo(info[0],info[1],Double.parseDouble(info[2]),tracks.getBlockNum(info[1], info[0]));
+                  TrainSchedule.add(schedule);
+             
+              
           }
 		  int R;
           int G;
@@ -53,7 +55,7 @@ public class TrainScheduleFileParser {
             		  (int) (((Math.pow((startLine.getSpeedLimit()*.447),2))/(2*1.2))*3.3),"Head","-1" ,"YY", 
             		  startLine.getBlockNum(),(int) (startLine.getBlockLen()), 
             		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()), startLine.getElevation(), false, 
-            		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false,0);
+            		  "Good",  "PIONEER", TrainSchedule.get(0).getBlockNum(), TrainSchedule, false, false,0, 0);
               map.updateColor("YY","-1", "Green", color);
             
             }else {
@@ -69,7 +71,7 @@ public class TrainScheduleFileParser {
             		  (int) (((Math.pow((startLine.getSpeedLimit()*.447),2))/(2*1.2))*3.3),"Head", "-1" ,"U", 
             		  startLine.getBlockNum(),(int) (startLine.getBlockLen()), 
             		  startLine.getBlockGrade(),(int) (startLine.getSpeedLimit()), startLine.getElevation(), false, 
-            		  "Good",  "Yard", tracks.getBlockNum(TrainSchedule.get(1)), TrainSchedule, false, false,0);
+            		  "Good",  "SHADYSIDE", TrainSchedule.get(0).getBlockNum(), TrainSchedule, false, false,0, 0);
               map.updateColor("U","-1", "Red", color);
             }
           br.close();

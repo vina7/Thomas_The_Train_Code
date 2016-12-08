@@ -8,17 +8,21 @@ public class AllTrackBlock {
 	private static AllTrackBlock instance =null;
 	  ArrayList <TrackBlock> GreenTrack;
 	  ArrayList <TrackBlock> RedTrack;
+	  ArrayList <BrokenTracks> BrokenRails;
 	  boolean DebugMode;
 	  protected AllTrackBlock(boolean DebugMode){
 		  GreenTrack = new ArrayList <TrackBlock>();
 		  RedTrack = new ArrayList <TrackBlock>();
-		  DebugMode=DebugMode;
+		  BrokenRails = new ArrayList <BrokenTracks>();
 	  }
 	  public ArrayList <TrackBlock> getGreenTrack(){
 		  return GreenTrack;
 	  }
 	  public ArrayList <TrackBlock> getRedTrack(){
 		  return RedTrack;
+	  }
+	  public ArrayList <BrokenTracks> getBrokenRails(){
+		  return BrokenRails;
 	  }
 	  public static AllTrackBlock getInstance(boolean DebugMode){
 		  if(instance == null){
@@ -52,6 +56,22 @@ public class AllTrackBlock {
 		  }else if (Line.equals("Red")){
 			  RedTrack = new ArrayList <TrackBlock>();
 		  }
+	  }
+	  public int getBlockNum(String station, String Line){
+		  if(Line.equalsIgnoreCase("Green")){
+			  for(int i =0;i<GreenTrack.size(); i++){
+                  if(GreenTrack.get(i).getInfrastructure().equalsIgnoreCase(station)){
+                    return GreenTrack.get(i).getBlockNum();
+                  }
+                }
+		  } else if(Line.equalsIgnoreCase("Red")){
+			  for(int i =0;i<RedTrack.size(); i++){
+                  if(RedTrack.get(i).getInfrastructure().equalsIgnoreCase(station)){
+                    return RedTrack.get(i).getBlockNum();
+                  }
+                }
+		  }
+		  return -1;
 	  }
 	  public int getBlockNum(ScheduleInfo schedule){
 		  if(schedule.getLine().equals("Green")){
@@ -271,23 +291,16 @@ public class AllTrackBlock {
 	      
 		}
 	  public boolean getClosed(int BlockNum, String Line){
-		  TrackBlock temp;
-		  if (Line.equals("Green")){
-			  for(int i =0; i<GreenTrack.size(); i++){
-				  temp = GreenTrack.get(i);
-				  if(temp.getBlockNum()==BlockNum){
-					  return temp.getClosed();
-				  }
+		  BrokenTracks tracks;
+		  for(int i =0; i<BrokenRails.size(); i++){
+			  tracks = BrokenRails.get(i);
+			  if(tracks.getLine().equalsIgnoreCase(Line)){
+			  if(tracks.getBlockNum()==BlockNum){
+				  return tracks.getClosed();
 			  }
-		  } else if(Line.equals("Red")){
-			  for(int i =0; i<RedTrack.size(); i++){
-				  temp = RedTrack.get(i);
-				  if(temp.getBlockNum()==BlockNum){
-					  return temp.getClosed();
-				  }
 			  }
 		  }
-		  return true;
+		  return false;
 	      
 		}
 	  public int getClosedTime(int BlockNum, String Line){
@@ -390,6 +403,15 @@ public class AllTrackBlock {
 		}
 	  public void setClosed(boolean Closed, int BlockNum, String Line){
 			TrackBlock temp;
+			BrokenTracks tracks;
+			for(int i =0; i<BrokenRails.size(); i++){
+				  tracks = BrokenRails.get(i);
+				  if(tracks.getLine().equalsIgnoreCase(Line)){
+				  if(tracks.getBlockNum()==BlockNum){
+					  tracks.setClosed(Closed); 
+				  }
+				  }
+			  }
 			  if (Line.equals("Green")){
 				  for(int i =0; i<GreenTrack.size(); i++){
 					  temp = GreenTrack.get(i);
@@ -408,6 +430,15 @@ public class AllTrackBlock {
 		}
 	  public void setClosedTime(int ClosedTime, int BlockNum, String Line){
 			TrackBlock temp;
+			BrokenTracks tracks;
+			for(int i =0; i<BrokenRails.size(); i++){
+				  tracks = BrokenRails.get(i);
+				  if(tracks.getLine().equalsIgnoreCase(Line)){
+				  if(tracks.getBlockNum()==BlockNum){
+					  tracks.setClosedTime(ClosedTime);
+				  }
+				  }
+			  }
 			  if (Line.equals("Green")){
 				  for(int i =0; i<GreenTrack.size(); i++){
 					  temp = GreenTrack.get(i);
@@ -426,11 +457,44 @@ public class AllTrackBlock {
 		}
 	  public void setBroken(boolean Broken, int BlockNum, String Line){
 			TrackBlock temp;
+			int fixtime=(int)((Math.random()*100)+1);
+			this.setTimeToFixRail(fixtime, BlockNum, Line);
+			BrokenTracks tracks = new BrokenTracks(Line, BlockNum, fixtime,false, 0, true);
+			BrokenRails.add(tracks);
 			  if (Line.equals("Green")){
 				  for(int i =0; i<GreenTrack.size(); i++){
 					  temp = GreenTrack.get(i);
 					  if(temp.getBlockNum()==BlockNum){
 						  temp.setBroken(Broken);
+						  
+					  }
+				  }
+			  } else if(Line.equals("Red")){
+				  for(int i =0; i<RedTrack.size(); i++){
+					  temp = RedTrack.get(i);
+					  if(temp.getBlockNum()==BlockNum){
+						  temp.setBroken(Broken);
+					  }
+				  }
+			  }
+		}
+	  public void removeBroken(boolean Broken, int BlockNum, String Line){
+			TrackBlock temp;
+			BrokenTracks tracks;
+			for(int i =0; i<BrokenRails.size(); i++){
+				  tracks = BrokenRails.get(i);
+				  if(tracks.getLine().equalsIgnoreCase(Line)){
+				  if(tracks.getBlockNum()==BlockNum){
+					  BrokenRails.remove(i);
+				  }
+				  }
+			  }
+			  if (Line.equals("Green")){
+				  for(int i =0; i<GreenTrack.size(); i++){
+					  temp = GreenTrack.get(i);
+					  if(temp.getBlockNum()==BlockNum){
+						  temp.setBroken(Broken);
+						  
 					  }
 				  }
 			  } else if(Line.equals("Red")){
@@ -460,7 +524,7 @@ public class AllTrackBlock {
 				  }
 			  }
 		}
-	  public void setTimeToFixRail(int TimeToFixRail, int BlockNum, String Line){
+	  private void setTimeToFixRail(int TimeToFixRail, int BlockNum, String Line){
 			TrackBlock temp;
 			  if (Line.equals("Green")){
 				  for(int i =0; i<GreenTrack.size(); i++){
