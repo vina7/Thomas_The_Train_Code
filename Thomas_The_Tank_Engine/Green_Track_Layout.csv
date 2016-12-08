@@ -103,7 +103,7 @@ Green,R,101,35,0,55, ,0,0,Switch 4,Tail/Head
 Green,S,102,100,0,60, ,0,0, ,Tail
 Green,S,103,100,0,60, ,0,0, ,
 Green,S,104,80,0,60, ,0,0, ,Head
-Green,T,105,100,0,60,STATION; DORMONT,0,0, ,Tail
+Green,T,105,100,0,60,DORMONT,0,0, ,Tail
 Green,T,106,100,0,60, ,0,0, ,
 Green,T,107,90,0,60, ,0,0, ,
 Green,T,108,100,0,60, ,0,0, ,
