@@ -3,6 +3,13 @@ import java.awt.Color;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * This class is a model for the train table
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
+ *
+ */
+
 public class MainLineTableModel extends AbstractTableModel {
   
   private List<Trains> TrainList;
@@ -12,11 +19,18 @@ public class MainLineTableModel extends AbstractTableModel {
   private final Class[] columnClass = new Class[] {
       Color.class,String.class, String.class, Integer.class, Integer.class, Integer.class, String.class, String.class
   };
-
+  /**
+   * Constructor
+   * @param TrainList List 
+   */
   public MainLineTableModel(List<Trains> TrainList)
   {
       this.TrainList = TrainList;
   }
+  /**
+   * Updates the table's train information
+   * @param TrainList List
+   */
   public void updateTrainList(List<Trains> TrainList){
 	  this.TrainList = TrainList;
   }

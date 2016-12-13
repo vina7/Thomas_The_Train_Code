@@ -1,3 +1,9 @@
+/**
+ * This class is used as the model for the track model table
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
+ *
+ */
 package CTC_office;
 
 import java.util.ArrayList;
@@ -15,11 +21,18 @@ public class SwitchesModel extends AbstractTableModel {
 		  private final Class[] columnClass = new Class[] {
 		      String.class,String.class, Integer.class,Integer.class, Double.class, Double.class, String.class, String.class,  String.class, Double.class
 		  };
-
+          /**
+           * Constructor 
+           * @param Blocks AllTrackBlock object
+           */
 		  public SwitchesModel(AllTrackBlock Blocks )
 		  {
 		      this.Blocks= Blocks;
 		  }
+		  /**
+		   * Updates the blocks object with the track information
+		   * @param Blocks AllTrackBlock object
+		   */
 		  public void updateBlocks(AllTrackBlock Blocks){
 			  this.Blocks = Blocks;
 		  }

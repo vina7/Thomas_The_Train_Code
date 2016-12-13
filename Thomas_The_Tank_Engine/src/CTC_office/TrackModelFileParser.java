@@ -1,20 +1,29 @@
-/**
- * 
- */
 package CTC_office;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 
 /**
- * @author van
+ * This class is used to parse the track model file
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
  *
  */
 public class TrackModelFileParser {
   private boolean DebugMode;
+  /**
+	 * Constructor
+	 * @param DebugMode Used as a way to debug the system
+	 */
   public TrackModelFileParser(boolean DebugMode){
 	  this.DebugMode = DebugMode;
   }
+  /**
+   * Method used to parse a track model file
+   * @param fileAddress File address of schedule file
+   * @param tracks AllTrackBlock object
+   * @return tracks AllTrackBlock object
+   */
   public AllTrackBlock Parser(String fileAddress, AllTrackBlock tracks){
 	  try {
           BufferedReader br = new BufferedReader(new FileReader(fileAddress));

@@ -1,6 +1,12 @@
 package Interface;
 
 public class RouteItem {
+	 /**
+	  * 
+	  * @author Kaitlyn Carey
+	  * This file is was part of the system prototype. It is used as a place holder for the track controller.
+	  * So it is not commented
+	  */ 
 
 	String prev; 		// previous section's letter
 	String curr;			// current section's letter

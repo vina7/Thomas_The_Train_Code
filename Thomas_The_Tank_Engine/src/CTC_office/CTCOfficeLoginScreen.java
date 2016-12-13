@@ -10,6 +10,12 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * This class is used as the CTC office login screen's UI
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
+ *
+ */
 public class CTCOfficeLoginScreen extends JFrame{
 
 	private JFrame frame;

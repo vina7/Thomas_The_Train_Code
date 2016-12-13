@@ -12,7 +12,12 @@ import Interface.Switches;
 import Interface.TrackCircuit;
 import Interface.TrackCircuitTrainInfo;
 import Overall_Sys.TimeClass;
-
+/**
+ * 
+ * @author Kaitlyn Carey
+ * This file is was part of the system prototype. It is used as a place holder for the track controller.
+ *
+ */
 /*Track Controller. The system will be controlled by 4 TCs, each controlling a quadrant of the track. */
 public class TrackController {
 	

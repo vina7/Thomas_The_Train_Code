@@ -4,32 +4,80 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Stores the information of the system's track blocks
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
+ *
+ */
+
 public class AllTrackBlock {
 	private static AllTrackBlock instance =null;
 	  ArrayList <TrackBlock> GreenTrack;
 	  ArrayList <TrackBlock> RedTrack;
 	  ArrayList <BrokenTracks> BrokenRails;
 	  boolean DebugMode;
+	  /**
+	   * Constructor
+	   * @param DebugMode Used as a way to debug the system
+	   */
 	  protected AllTrackBlock(boolean DebugMode){
 		  GreenTrack = new ArrayList <TrackBlock>();
 		  RedTrack = new ArrayList <TrackBlock>();
 		  BrokenRails = new ArrayList <BrokenTracks>();
 	  }
+	  /**
+	   * Returns the list of green tracks in the system
+	   * @return GreenTrain
+	   */
 	  public ArrayList <TrackBlock> getGreenTrack(){
 		  return GreenTrack;
 	  }
+	  /**
+	   * Returns the list of red tracks in the system
+	   * @return GreenTrain
+	   */
 	  public ArrayList <TrackBlock> getRedTrack(){
 		  return RedTrack;
 	  }
+	  /**
+	   * Returns the list of broken tracks in the system
+	   * @return GreenTrain
+	   */
 	  public ArrayList <BrokenTracks> getBrokenRails(){
 		  return BrokenRails;
 	  }
+	  /**
+	   * Gets instance of this class
+	   * @param DebugMode Used as a way to debug the system
+	   * @return instance 
+	   */
 	  public static AllTrackBlock getInstance(boolean DebugMode){
 		  if(instance == null){
 			  instance= new AllTrackBlock(DebugMode);
 		  }
 		  return instance;
 	  }
+	  /**
+	   * Adds blocks to the track list
+	   * @param Line block's line
+	   * @param Section block's section
+	   * @param BlockNum block's block number
+	   * @param BlockLen block's length
+	   * @param BlockGrade block's grade
+	   * @param SpeedLimit block's speed limit
+	   * @param Infrastructure block's infrastructure
+	   * @param Elevation block's elevation
+	   * @param CumElevation block's cumulative elevation
+	   * @param SwitchBlock if the block is a switch block
+	   * @param ArrowDirection block's arrow direction
+	   * @param SwitchPosition block's switch position
+	   * @param Closed if the block is closed 
+	   * @param ClosedTime time block was closed
+	   * @param Broken if the block is broken
+	   * @param RailroadCross if the block is a railroad crossing
+	   * @param TimeToFixRail time to fix the block
+	   */
 	  public void addBlock( String Line,String Section, int BlockNum, int BlockLen, double BlockGrade,
 			  double SpeedLimit, String Infrastructure, double Elevation, double CumElevation, String SwitchBlock,
 			  String ArrowDirection, String SwitchPosition, boolean Closed, int ClosedTime, boolean Broken, String RailroadCross,
@@ -50,6 +98,10 @@ public class AllTrackBlock {
 		       }
 		  
 	  }
+	  /**
+	   * Reset a track line
+	   * @param Line block's line
+	   */
 	  public void resetTracks(String Line){
 		  if(Line.equals("Green")){
 			  GreenTrack = new ArrayList <TrackBlock>();
@@ -57,6 +109,12 @@ public class AllTrackBlock {
 			  RedTrack = new ArrayList <TrackBlock>();
 		  }
 	  }
+	  /**
+	   * Gets the station's block number 
+	   * @param station block's station
+	   * @param Line block's line
+	   * @return Block number
+	   */
 	  public int getBlockNum(String station, String Line){
 		  if(Line.equalsIgnoreCase("Green")){
 			  for(int i =0;i<GreenTrack.size(); i++){
@@ -73,6 +131,11 @@ public class AllTrackBlock {
 		  }
 		  return -1;
 	  }
+	  /**
+	   * Gets the station's block number
+	   * @param schedule train's schedule
+	   * @return block number
+	   */
 	  public int getBlockNum(ScheduleInfo schedule){
 		  if(schedule.getLine().equals("Green")){
 			  for(int i =0;i<GreenTrack.size(); i++){
@@ -89,6 +152,12 @@ public class AllTrackBlock {
 		  }
 		  return -1;
 	  }
+	  /**
+	   * Gets the block's length
+	   * @param BlockNum block's number 
+	   * @param Line block's line
+	   * @return block length
+	   */
 	  public int getBlockLen(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -109,6 +178,12 @@ public class AllTrackBlock {
 		  return -1;
 	      
 		}
+	  /**
+	   * Gets the block's section
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return block's section
+	   */
 	  public String getSection(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -129,6 +204,12 @@ public class AllTrackBlock {
 		  return null;
 	      
 		}
+	  /**
+	   * Get the block's grade
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return block grade
+	   */
 	  public double getBlockGrade(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -149,6 +230,12 @@ public class AllTrackBlock {
 		  return -1;
 	      
 		}
+	  /**
+	   * Get the train's Speed Limit
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return speed limit
+	   */
 	  public double getSpeedLimit(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -169,6 +256,12 @@ public class AllTrackBlock {
 		  return -1;
 	      
 		}
+	  /**
+	   * Gets the block's infrastructure
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return Infrastructure
+	   */
 	  public String getInfrastructure(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -189,6 +282,12 @@ public class AllTrackBlock {
 		  return null;
 	      
 		}
+	  /**
+	   * Gets the block elevation
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return elevation
+	   */
 	  public double getElevation(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -209,6 +308,12 @@ public class AllTrackBlock {
 		  return -1;
 	      
 		}
+	  /**
+	   * Gets the cumulative elevation
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return cumulative elevation
+	   */
 	  public double getCumElevation(int BlockNum, String Line){
 
 		  TrackBlock temp;
@@ -230,6 +335,12 @@ public class AllTrackBlock {
 		  return -1;
 	      
 		}
+	  /**
+	   * Gets the block switch block
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return switch blocks
+	   */
 	  public String getSwitchBlock(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -250,6 +361,12 @@ public class AllTrackBlock {
 		  return null;
 	      
 		}
+	  /**
+	   * Get the block's arrow direction
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return arrow direction
+	   */
 	  public String getArrowDirection(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -270,6 +387,12 @@ public class AllTrackBlock {
 		  return null;
 	      
 		}
+	  /**
+	   * Gets the block switch position
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return switch position
+	   */
 	  public String getSwitchPosition(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -290,6 +413,12 @@ public class AllTrackBlock {
 		  return null;
 	      
 		}
+	  /**
+	   * Gets whether the block is closed
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return Closed
+	   */
 	  public boolean getClosed(int BlockNum, String Line){
 		  BrokenTracks tracks;
 		  for(int i =0; i<BrokenRails.size(); i++){
@@ -303,6 +432,12 @@ public class AllTrackBlock {
 		  return false;
 	      
 		}
+	  /**
+	   * gets the time the block was closed
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return closed time
+	   */
 	  public int getClosedTime(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -323,6 +458,12 @@ public class AllTrackBlock {
 		  return -1;
 	      
 		}
+	  /**
+	   * Gets whether the block is broken
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return broken
+	   */
 	  public boolean getBroken(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -343,6 +484,12 @@ public class AllTrackBlock {
 		  return true;
 	      
 		}
+	  /**
+	   * Gets whether the block is a railroad crossing
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   * @return Railroadcroess
+	   */
 	  public String getRailroadCross(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -363,6 +510,12 @@ public class AllTrackBlock {
 		  return null;
 	      
 		}
+	  /**
+	   * gets time to fix a broken rail
+	   * @param BlockNum block's number 
+	   * @param Line block's line
+	   * @return time to fix broken rails
+	   */
 	  public int getTimeToFixRail(int BlockNum, String Line){
 		  TrackBlock temp;
 		  if (Line.equals("Green")){
@@ -383,6 +536,12 @@ public class AllTrackBlock {
 		  return -1;
 	      
 		}
+	  /**
+	   * Sets the blocks switch position
+	   * @param SwitchPosition block's switch position 
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   */
 	  public void setSwitchPosition(String SwitchPosition, int BlockNum, String Line){
 			TrackBlock temp;
 			  if (Line.equals("Green")){
@@ -401,6 +560,12 @@ public class AllTrackBlock {
 				  }
 			  }
 		}
+	  /**
+	   * Sets if the track is closed
+	   * @param Closed if track is closed 
+	   * @param BlockNum block's number 
+	   * @param Line block's line
+	   */
 	  public void setClosed(boolean Closed, int BlockNum, String Line){
 			TrackBlock temp;
 			BrokenTracks tracks;
@@ -428,6 +593,12 @@ public class AllTrackBlock {
 				  }
 			  }
 		}
+	  /**
+	   * Sets the block's closed time
+	   * @param ClosedTime block's closed time
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   */
 	  public void setClosedTime(int ClosedTime, int BlockNum, String Line){
 			TrackBlock temp;
 			BrokenTracks tracks;
@@ -455,6 +626,12 @@ public class AllTrackBlock {
 				  }
 			  }
 		}
+	  /**
+	   * Set is the block is broken
+	   * @param Broken if the block is broken
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   */
 	  public void setBroken(boolean Broken, int BlockNum, String Line){
 			TrackBlock temp;
 			int fixtime=(int)((Math.random()*100)+1);
@@ -478,6 +655,12 @@ public class AllTrackBlock {
 				  }
 			  }
 		}
+	  /**
+	   * Removes broken blocks
+	   * @param Broken if block is not broken anymore
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   */
 	  public void removeBroken(boolean Broken, int BlockNum, String Line){
 			TrackBlock temp;
 			BrokenTracks tracks;
@@ -506,6 +689,12 @@ public class AllTrackBlock {
 				  }
 			  }
 		}
+	  /**
+	   * Sets the track railroad crossing locations
+	   * @param RailroadCross 
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   */
 	  public void setRailroadCross(String RailroadCross, int BlockNum, String Line){
 			TrackBlock temp;
 			  if (Line.equals("Green")){
@@ -524,6 +713,12 @@ public class AllTrackBlock {
 				  }
 			  }
 		}
+	  /**
+	   * Sets time to fix broken rails
+	   * @param TimeToFixRail block's time to fix
+	   * @param BlockNum block's number
+	   * @param Line block's line
+	   */
 	  private void setTimeToFixRail(int TimeToFixRail, int BlockNum, String Line){
 			TrackBlock temp;
 			  if (Line.equals("Green")){

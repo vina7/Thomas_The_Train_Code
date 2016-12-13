@@ -6,7 +6,13 @@ public class Route {
 	
 	 ArrayList<RouteItem> redRoute = new ArrayList<RouteItem>();
 	 ArrayList<RouteItem> greenRoute = new ArrayList<RouteItem>();
-	  
+	 /**
+	  * 
+	  * @author Kaitlyn Carey
+	  * This file is was part of the system prototype. It is used as a place holder for the track controller.
+	  * So it is not commented
+	  */ 
+	 
 	public Route(){
 		
 		  redRoute.add(new RouteItem("-1","u","d",77,77,false));

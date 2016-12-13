@@ -11,10 +11,20 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+/**
+ * This class is a extended JPanel class for the map ui 
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
+ *
+ */
 
     class MapPanel extends JPanel {
         private List<ShapeItem> shapes;
 
+        /**
+         * Constructor 
+         * @param shapesList Array list
+         */
         public MapPanel(List<ShapeItem> shapesList) {
             this.shapes = shapesList;
 

@@ -7,7 +7,12 @@ import Overall_Sys.TimeClass;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-//prevSection
+/**
+ * The main ctc class
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
+ *
+ */
 public class CTC_Office {
 	private CTCOfficeLoginScreen LoginScreen;
 	private CTCMapUI Mapwindow;
@@ -112,15 +117,30 @@ public class CTC_Office {
 		
 		
 	}
+	/**
+	 * constructor
+	 */
 	public CTC_Office(){
 		main(this);
 	}
+	/**
+	 * Updates the track block object
+	 * @param Blocks AllTrackBlock object
+	 */
 	public void updateTrack(AllTrackBlock Blocks){
 		this.Blocks =Blocks;
 	}
+	/**
+	 * Updates the train object
+	 * @param train AllTrains object
+	 */
 	public void updateTrain(AllTrains train){
 		this.train =train;
 	}
+	/**
+	 * Updates the time multiplier
+	 * @param mult Time multiplier
+	 */ 
     public void updateMult(int mult){
     	this.mult = mult;
     }

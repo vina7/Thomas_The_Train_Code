@@ -1,14 +1,33 @@
 package CTC_office;
 
+/**
+ * This class is used to set a train's destination 
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
+ *
+ */
+
 import java.util.List;
 
 import Interface.CTC_TC_Trains;
 import Interface.CTCandTrackControllerInterface;
 
 public class SetDestination {
+	/**
+	 * Constructor
+	 */
      public SetDestination(){
     	 
      }
+     /**
+      * Sets the train's dispatcher set destination 
+      * @param ID Train's id
+      * @param BlockNum Train's block number 
+      * @param mode VerifyManualMode object
+      * @param train AllTrains object
+      * @param Blocks AllTrains object
+      * @return train AllTrains object
+      */
      public AllTrains setManualDestination(int ID, int BlockNum, VerifyManualMode mode, AllTrains train, AllTrackBlock Blocks){
     	 if(mode.verify()){
     		 train.setDestBlock(BlockNum, ID, train.getTrainSchedule(ID).get(0).getLine());
@@ -30,6 +49,16 @@ public class SetDestination {
     	 }
     	 return train;
      }
+     /**
+      * Sets the train's destination automatically
+      * @param ID train's id
+      * @param BlockNum train's block number
+      * @param train AllTrains object
+      * @param Blocks AllTrackBlock object
+      * @param reversedirection train's direction
+      * @param TCinterface CTCandTrackControllerInterface object
+      * @return train AllTrains object
+      */
      private AllTrains setAutomaticDestination(int ID, int BlockNum, AllTrains train, AllTrackBlock Blocks, boolean reversedirection, CTCandTrackControllerInterface TCinterface){
     	 List <ScheduleInfo> stations =train.getTrainSchedule(ID);
         		 if(stations.get(train.getStationNum(ID, train.getTrainSchedule(ID).get(0).getLine())).getBlockNum()== BlockNum){
@@ -50,6 +79,15 @@ public class SetDestination {
         		 }
     	 return train;
      }
+     /**
+      * checks if the train past its current set destination 
+      * @param ID train's id
+      * @param train  AllTrains object
+      * @param Blocks AllTrackBlock object
+      * @param reversedirection train's direction 
+      * @param TCinterface CTCandTrackControllerInterface object
+      * @return train  AllTrains object
+      */
      public AllTrains checkPastDestionation(int ID, AllTrains train, AllTrackBlock Blocks, boolean reversedirection, CTCandTrackControllerInterface TCinterface){
     	 if(train.getBlockNum(ID, train.getTrainSchedule(ID).get(0).getLine())== train.getDestBlock(ID, train.getTrainSchedule(ID).get(0).getLine()) ){
     		 train=setAutomaticDestination(ID, train.getDestBlock(ID, train.getTrainSchedule(ID).get(0).getLine()), train, Blocks,reversedirection,TCinterface);   	 

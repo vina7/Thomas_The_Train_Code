@@ -27,6 +27,12 @@ import java.io.File;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
+/**
+ * This class is used as the CTC office's UI
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
+ *
+ */
 public class CTCOfficeUI {
 
 	private JFrame frame;
@@ -286,11 +292,19 @@ public class CTCOfficeUI {
 		frame.getContentPane().add(scrollPane3);
 		
 	}
+	/**
+	 * Updates the track model table
+	 * @param Blocks
+	 */
 	public void updateSwitchTable(AllTrackBlock Blocks){
 		this.Blocks =Blocks;
 		switchs.updateBlocks(Blocks);
 		switchs.fireTableDataChanged();
 	}
+	/**
+	 * Updates the train's table
+	 * @param Train AllTrains object
+	 */
 	public void updateTrains(AllTrains Train){
 		List <Trains>  alltrains = new ArrayList <Trains>();
         alltrains.addAll(Train.getRedTrain());
@@ -298,14 +312,26 @@ public class CTCOfficeUI {
 		Line.updateTrainList(alltrains);
 		Line.fireTableDataChanged();
 	}
+	/**
+	 * Updates the broken rail's table
+	 * @param Blocks AllTrackBlock object
+	 */
 	public void updateBrokenRails(AllTrackBlock Blocks){
 		this.Blocks =Blocks;
 		BTracks.updateBlocks(Blocks);
 		BTracks.fireTableDataChanged();
 		}
+	/**
+	 * Sends back the CTC's mode
+	 * @return this.mode.verify()
+	 */
 	public boolean getMode(){
 		return this.mode.verify();
 	}
+	/**
+	 * Sends back the updated block object
+	 * @return Blocks
+	 */
 	public AllTrackBlock getupdatedBlocks(){
 		return Blocks;
 	}

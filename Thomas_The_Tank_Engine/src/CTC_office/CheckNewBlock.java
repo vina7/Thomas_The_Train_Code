@@ -6,11 +6,30 @@ import Interface.CTC_TC_Trains;
 import Interface.CTCandTrackControllerInterface;
 import Interface.Route;
 import Interface.TrackCircuit;
-
+/**
+ * Checks to see if a train has moved to a new block
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
+ *
+ */
 public class CheckNewBlock {
+	/**
+	 * Constructor
+	 */
   public CheckNewBlock(){
 	  
   }
+  /**
+   * Checks if the train has moved to a new block
+   * @param circuit TrackCircuit object
+   * @param ID Train's id
+   * @param train AllTrains object
+   * @param Blocks AllTrackBlock object
+   * @param map CTCMapUI object
+   * @param mode The CTC's mode
+   * @param TCinterface CTCandTrackControllerInterface object
+   * @return train
+   */
   public AllTrains  check(TrackCircuit circuit,int ID, AllTrains train, AllTrackBlock Blocks, CTCMapUI map, boolean mode, CTCandTrackControllerInterface TCinterface){
 	  Route ourroute = new Route();
 	  SetDestination dest = new SetDestination();

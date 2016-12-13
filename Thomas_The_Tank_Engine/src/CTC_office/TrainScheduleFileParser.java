@@ -6,17 +6,36 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to parse the train schedule
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
+ *
+ */
+
 public class TrainScheduleFileParser {
   private boolean DebugMode;
   private ArrayList usedR;
   private ArrayList usedG;
   private ArrayList usedB;
+  /**
+	 * Constructor
+	 * @param DebugMode Used as a way to debug the system
+	 */
   public TrainScheduleFileParser(boolean DebugMode){
 	  this.DebugMode = DebugMode;
 	  usedR= new ArrayList();
 	  usedG= new ArrayList();
 	   usedB= new ArrayList();
   }
+  /**
+   * Method used to parse a schedule file
+   * @param trainlist AllTrains object
+   * @param fileAddress File address of schedule file
+   * @param tracks AllTrackBlock object
+   * @param map CTCMapUI object
+   * @return trainlist AllTrains object
+   */
   public AllTrains Parser(AllTrains trainlist, String fileAddress, AllTrackBlock tracks, CTCMapUI map){
 	  List<ScheduleInfo> TrainSchedule = new ArrayList<ScheduleInfo>();
 	  try {

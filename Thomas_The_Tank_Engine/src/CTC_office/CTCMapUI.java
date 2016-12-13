@@ -30,6 +30,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
+/**
+ * This class is used as the CTC office Map's UI
+ * @author Vinayak Nesarikar
+ * @version 12/8/16
+ *
+ */
+
 public class CTCMapUI {
 
 	private JFrame frame;
@@ -267,6 +274,13 @@ public class CTCMapUI {
            }
          }
 	}
+	/**
+	 * Updates the track block's color
+	 * @param Section Train's section
+	 * @param PrevSection Train's previous section
+	 * @param Line Train's line
+	 * @param color Train's color
+	 */
 	public void updateColor(String Section,String PrevSection, String Line, Color color){
 		if(Line.equals("Green")){
 			String temp = "G"+Section;
