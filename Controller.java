@@ -1,151 +1,303 @@
+package TrainController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import TrainModel.*;
+
+@SuppressWarnings("unused")
 public class Controller {
-	//private final double PASS_WEIGHT = 68.0389; //150lbs
-	//private final double TRAIN_WEIGHT = 37103.86; //40.9tons
-	private final double MAX_POWER = 120000;
+		
+	private final double	MPS_TO_MPH = 2.23694;		//Conversion ratio for meters per second to miles per hour
+	
+	//TRAIN INFO
+	private	int			ID;
+	private	int			mode;							//0 for automatic, 1 for manual
+	
+	//POWER CONTROL
+	private	double		setSpeedLimit;
+	private double transitSpeed;
+	private	double		currentSpeed;
+	private	double		blockSpeedLimit;
+	private double		powerCommand;
+	
+	//BRAKING
+	private	boolean		brakeStatus;					//true = on
+	private	boolean		eBrakeStatus ;					//true = on
+	private	boolean		manualBrake;					//true = manual braking
+	private	boolean		manualEBrake;					//true = manual e-braking
+	
+	//SUBSYSTEMS
+	public	boolean		leftDoorStatus;					//true = open
+	public	boolean		rightDoorStatus;				//true = open
+	
+	//STATION INFO
+	private	String		stationName;
+	private	String		stationSide;					//"left" or "right"
+	
+	//ASSOCIATED CLASSES
+	private	Train			model;
+	private	TrainControllerUI	ui;
+	private	VitalControl		vc;	
+	
 
-	private static boolean initialized = false;
-	private Train trainInstance;
-	private TrainControllerGui g;
-	private double speed_limit = 0;
-	private double authority = 0;
-
-	private double prev_power = 0;
-	private double prev_integral = 0;
-	private double prev_error = 0;
-	private double dt = 1;
-	private int kp = -24000;
-	private int ki = 1;
-
-	public TrainController(Train trainInstance) {
-		if(!initialized)
-		{
-			g = new TrainControllerGui();
-			g.main(null);
-			initialized = true;
-		}
-
-		this.trainInstance = trainInstance;
-		g.addTrainController(this);
-	}
-
-	public double update(double set_speed, double authority, int clock)
-	{
-		this.dt = clock / 1000; //change from miliseconds to seconds
-		this.speed_limit = set_speed;
-		this.authority = authority;
-
-		double current_speed = this.getSpeed();
-		double stop_distance = current_speed*current_speed/(2*BRAKE_SPEED);
-		if(stop_distance >= authority - 5)
-		{
-			this.setServiceBrake(true);
-			prev_power = 0;
-			return 0;
-		}
-
-		double error = current_speed - set_speed;
-
-		double integral;
-		if(prev_power < MAX_POWER)
-			integral = prev_integral + dt/2 * (error + prev_error);
-		else
-			integral = prev_integral;
-
-
-		double power = kp*error + ki*integral;
-        double power1 = kp*error + ki*integral;
-        
-        if(power1 != power)
-        {
-            return 0;
-        }
-        
-		prev_error = error;
-		prev_integral = integral;
-		prev_power = power;
-
-		if(power > MAX_POWER)
-			power = MAX_POWER;
-
-		if(power <= 0)
-		{
-			power = 0;
-			train.setServiceBrake(true);
-		}
-		else
-		{
-			train.setServiceBrake(false);
-		}
-
-		//System.out.println("Speed: " + current_speed + ", Acceleration: " + a + ", Power: " + power);
-		return power;
-	}
-
-	public int getID()
-	{
-		return this.train.getID();
-	}
-
-	public boolean getLeftDoorStatus() {
-		return !this.train.hasDoorsOpen();
-	}
-
-	public void setLeftDoor(boolean closed) {
-		this.train.setDoorsOpen(!closed);
+	
+	public Controller(int newID, Train newTrainModel, TrainControllerUI newUI) {
+		ID = newID;
+		
+		model = newTrainModel;
+		model.setTrainController(this);
+		ui = newUI;
+		vc = new VitalControl(this);
+		mode = 2;
 	}
 	
-	public boolean getRightDoorStatus() {
-		return !this.train.hasDoorsOpen();
+	public int getID() {
+		return this.ID;
 	}
-
-	public void setRightDoor(boolean closed) {
-		this.train.setDoorsOpen(!closed);
-
-
-		public void setServiceBrakeStatus(boolean on) {
-			this.train.setServiceBrake(on);
-		}
-	public void setServiceBrake(boolean on) {
-		this.train.setServiceBrake(on);
+	public void setTrainsitVelocity(double i)
+	{
+		transitSpeed= i;
 	}
-
-	public boolean getEmergencyBrakeStatus() {
-		return this.train.isEmergencyBrakePulled();
-	}
-
-	public void setEmergencyBrake(boolean on) {
-		this.train.setEmergencyBrake(on);
-	}
-
-	public void setSetSpeed(double speed) {
-		this.speed_limit = speed;
-	}
-
+	
 	public double getSetSpeedLimit() {
-		return this.speed_limit;
+		System.out.println(mode);
+		if (mode == 1)
+	{
+		if (model.getCTCAdvisedSpeed() > model.getBlockSpeedLimit())
+	{
+		setSpeedLimit = model.getBlockSpeedLimit();
 	}
-
-	public double getCurrentSpeed() {
-		return this.train.getCurrentSpeed();
+	else
+	{
+		setSpeedLimit = model.getCTCAdvisedSpeed();
 	}
-
-	public double getAuthority() {
-	    return this.authority;
 	}
-
-public String getStation()
-return this.trainInstance.getStation;
-
-	public void detectTrainEngineFailure(boolean failure) {
-		this.train.setEngineFailure(failure);
+	else if (mode == 2){
+		setSpeedLimit = transitSpeed;
+		
+			
+		}
+	vc.setTargetVelocity(setSpeedLimit);
+	return setSpeedLimit;
 	}
-
-	public void detectSignalPickupFailure(boolean failure) {
-		this.train.setSignalPickupFailure(failure);
+	
+	public double getBlockSpeedLimit() {
+		return model.getBlockSpeedLimit();
 	}
-
-	public void detectBrakeFailure(boolean failure) {
-		this.train.setBrakeFailure(failure);
+	
+	public double getVelocityFeedback() {
+		return model.getCurrentSpeed();
 	}
+	
+	
+	
+	public double getPowerCommand() {
+		return powerCommand;
+	}
+	
+	//Switch between auto and manual modes
+	public void setMode(int newMode) {
+		mode = newMode;
+		return;
+	}
+	
+	
+	
+	
+	
+	
+	
+	//Get station info from the beacon and activate station approach mode
+	public void setStationInfo(String newStationName, String newStationSide) {
+		if(!stationName.equals(newStationName)) {
+			stationName = newStationName;
+			stationSide = newStationSide;
+		}
+		return;
+	}
+	
+	
+	
+	//Call for vital power control only if the brakes aren't set and the train has authority
+		private void controlPower() {
+		//	if(!brakeStatus && !eBrakeStatus ) {	
+			vc.vitalPower(model.getCurrentSpeed(), model.getCurrentSpeed(), model.getCurrentSpeed());
+			//}
+		}
+		
+		//Send the model its power command
+		public void sendPower(double power) {
+			powerCommand = power;
+			model.setEnginePower(power);
+			return;
+	}
+	
+		public void tick() {		
+			controlPower();
+			return;
+	}
+	
+	
+	//===================
+	//		BRAKING
+	//===================
+	
+	public void stopTrain(boolean manual) {
+		if(manual) {
+			manualBrake = true;
+		}
+		sendPower(0);
+		vc.resetPower();
+		model.activateServiceBrake();
+		brakeStatus = model.isServiceBrakeActive();
+		return;
+	}
+	
+	public void emergencyStop(boolean manual) {
+		if(manual) {
+			manualEBrake = true;
+		}
+		sendPower(0);
+		vc.resetPower();
+		model.activateEmergencyBrake();
+		eBrakeStatus = model.isEmergencyBrakeActive();
+		return;
+	}
+	
+	public void releaseServiceBrakes(boolean manual) {
+		if(manualBrake) {
+			if(manual && brakeStatus) {
+				model.deactivateServiceBrake();
+				brakeStatus = model.isServiceBrakeActive();
+				manualBrake = false;
+			}
+		}
+		else if(brakeStatus) {
+			model.deactivateServiceBrake();
+			brakeStatus = model.isServiceBrakeActive();
+		}
+		return;
+	}
+		
+	public void releaseEmergencyBrakes(boolean manual) {
+		if(manualEBrake) {
+			if(manual && eBrakeStatus) {
+				model.deactivateEmergencyBrake();
+				eBrakeStatus = model.isEmergencyBrakeActive();
+				manualEBrake = false;
+			}
+		}
+		else if(eBrakeStatus) {
+			model.deactivateEmergencyBrake();
+			eBrakeStatus = model.isEmergencyBrakeActive();
+		}
+		return;
+	}
+	
+	public double getAuthority()
+	{
+		return model.getAuthority();
+	}
+	
+
+	
+	//===================
+	//SUBSYSTEM CONTROL
+	//===================
+	public String getStation()
+	{
+		return model.getStation();
+	}
+	
+	public void transponder()
+	{
+		if (model.getTransponder())
+			{
+			stopTrain(false);
+			}
+		if (currentSpeed ==0)
+		{
+			controlDoors();
+		}
+	}
+	
+	public void openLeftDoors()
+	{
+		leftDoorStatus = true;
+		model.openLeftDoors();
+	}
+	
+	public void closeLeftDoors()
+	{
+		leftDoorStatus = false;
+		model.closeLeftDoors();
+	}
+	
+	public void openRightDoors()
+	{
+		rightDoorStatus = true;
+		model.openRightDoors();
+	}
+	
+	public void closeRightDoors()
+	{
+		rightDoorStatus = true;
+		model.closeRightDoors();
+	}
+	
+	
+	public void controlDoors() {
+		if (mode == 2)
+		{
+		if (model.getDirection())
+			{
+				if(model.getCurrentSpeed() == 0) {
+						model.openRightDoors();
+						rightDoorStatus = true;
+					}
+				else
+				{
+					model.closeRightDoors();
+					rightDoorStatus = false;
+				}
+			}
+			else{
+				if(model.getCurrentSpeed() ==0){
+					
+				model.openLeftDoors();
+				leftDoorStatus = true;
+				}
+				else
+				{
+					model.closeLeftDoors();
+					leftDoorStatus = false;
+				}
+			
+			}
+		}
+	}
+	
+	
+	public boolean getebrake()
+	{
+		return model.isEmergencyBrakeActive();
+	}
+	
+	public boolean getsbrake()
+	{
+		return model.isServiceBrakeActive();
+	}
+	
+	
+	
+	//Check if doors are open
+	public boolean checkDoors() {
+		return leftDoorStatus || rightDoorStatus;
+	}
+	
+	
+	
+	
+}
+	
