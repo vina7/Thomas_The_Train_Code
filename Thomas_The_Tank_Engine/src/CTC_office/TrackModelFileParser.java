@@ -5,60 +5,72 @@ import java.io.FileReader;
 
 /**
  * This class is used to parse the track model file
+ * 
  * @author Vinayak Nesarikar
  * @version 12/8/16
  *
  */
 public class TrackModelFileParser {
-  private boolean DebugMode;
-  /**
+	private boolean DebugMode;
+
+	/**
 	 * Constructor
-	 * @param DebugMode Used as a way to debug the system
+	 * 
+	 * @param DebugMode
+	 *            Used as a way to debug the system
 	 */
-  public TrackModelFileParser(boolean DebugMode){
-	  this.DebugMode = DebugMode;
-  }
-  /**
-   * Method used to parse a track model file
-   * @param fileAddress File address of schedule file
-   * @param tracks AllTrackBlock object
-   * @return tracks AllTrackBlock object
-   */
-  public AllTrackBlock Parser(String fileAddress, AllTrackBlock tracks){
-	  try {
-          BufferedReader br = new BufferedReader(new FileReader(fileAddress));
-          br.readLine();
-          String line = "";
-          int counter =0;
-          while ((line = br.readLine()) != null) {
-              String[] info = line.split(",");
-              if(counter==0){
-            	  if(info[0].equals("Green")){
-            		  if(tracks.getGreenTrack().size()>0){
-            			  tracks.resetTracks("Green");
-            		  }
-            		  
-            	  }else if (info[0].equals("Red")){
-                     if(tracks.getRedTrack().size()>0){
-                    	 tracks.resetTracks("Red");
-            		  }
-            	  }
-            	  counter=1;
-              }
-              if(info.length == 11){
-              tracks.addBlock(info[0],info[1],Integer.parseInt(info[2]),(int) (Double.parseDouble(info[3])*3.3),
-                  Double.parseDouble(info[4]),Double.parseDouble(info[5])*.621,info[6],Double.parseDouble(info[7])*3.3, 
-                  Double.parseDouble(info[8])*3.3, info[9], info[10], "", false,0, false, info[6].equals("RAILWAY CROSSING") ? "UP" : "",0);
-              } else{
-                tracks.addBlock(info[0],info[1],Integer.parseInt(info[2]),(int) (Double.parseDouble(info[3])*3.3),
-                    Double.parseDouble(info[4]),Integer.parseInt(info[5])*.621,info[6],Double.parseDouble(info[7])*3.3, 
-                    Double.parseDouble(info[8])*3.3, info[9], "", "", false,0, false, info[6].equals("RAILWAY CROSSING") ? "UP" : "",0);
-              }  
-          }
-          br.close();
-	  } catch (Exception p){
-		  System.out.println(p);
-	  }
-	  return tracks;
-  }
+	public TrackModelFileParser(boolean DebugMode) {
+		this.DebugMode = DebugMode;
+	}
+
+	/**
+	 * Method used to parse a track model file
+	 * 
+	 * @param fileAddress
+	 *            File address of schedule file
+	 * @param tracks
+	 *            AllTrackBlock object
+	 * @return tracks AllTrackBlock object
+	 */
+	public AllTrackBlock Parser(String fileAddress, AllTrackBlock tracks) {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(fileAddress));
+			br.readLine();
+			String line = "";
+			int counter = 0;
+			while ((line = br.readLine()) != null) {
+				String[] info = line.split(",");
+				if (counter == 0) {
+					if (info[0].equals("Green")) {
+						if (tracks.getGreenTrack().size() > 0) {
+							tracks.resetTracks("Green");
+						}
+
+					} else if (info[0].equals("Red")) {
+						if (tracks.getRedTrack().size() > 0) {
+							tracks.resetTracks("Red");
+						}
+					}
+					counter = 1;
+				}
+				if (info.length == 11) {
+					tracks.addBlock(info[0], info[1], Integer.parseInt(info[2]),
+							(int) (Double.parseDouble(info[3]) * 3.3), Double.parseDouble(info[4]),
+							Double.parseDouble(info[5]) * .621, info[6], Double.parseDouble(info[7]) * 3.3,
+							Double.parseDouble(info[8]) * 3.3, info[9], info[10], "", false, 0, false,
+							info[6].equals("RAILWAY CROSSING") ? "UP" : "", 0);
+				} else {
+					tracks.addBlock(info[0], info[1], Integer.parseInt(info[2]),
+							(int) (Double.parseDouble(info[3]) * 3.3), Double.parseDouble(info[4]),
+							Integer.parseInt(info[5]) * .621, info[6], Double.parseDouble(info[7]) * 3.3,
+							Double.parseDouble(info[8]) * 3.3, info[9], "", "", false, 0, false,
+							info[6].equals("RAILWAY CROSSING") ? "UP" : "", 0);
+				}
+			}
+			br.close();
+		} catch (Exception p) {
+			System.out.println(p);
+		}
+		return tracks;
+	}
 }

@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.event.ChangeListener;
 
+
 import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -35,7 +36,8 @@ import java.awt.event.ItemEvent;
 public class TrainModelUI {
 
 	JFrame frmTrainmodelmodule;
-	private JTextField txtEnginePower;
+	
+	//Constants
 	private JTextField txtLength;
 	private JTextField txtWidth;
 	private JTextField txtHeight;
@@ -45,6 +47,8 @@ public class TrainModelUI {
 	private JTextField txtAccelLim;
 	private JTextField txtMaxEnginePwr;
 	private JTextField txtMaxSpeed;
+	
+	private JTextField txtEnginePower;
 	private JTextField textLeftDoorStat;
 	private JTextField textRightDoorStat;
 	private JTextField txtEBrkStat;
@@ -82,7 +86,7 @@ public class TrainModelUI {
 	private void initialize() {
 		frmTrainmodelmodule = new JFrame();
 		frmTrainmodelmodule.setTitle("TrainModelModule");
-		frmTrainmodelmodule.setBounds(100, 100, 1262, 579);
+		frmTrainmodelmodule.setBounds(100, 100, 1161, 579);
 		frmTrainmodelmodule.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmTrainmodelmodule.getContentPane().setLayout(null);
 		
@@ -102,19 +106,23 @@ public class TrainModelUI {
 		lblFailModes.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton engineFailureButton = new JButton("Engine Failure");
+		engineFailureButton.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		engineFailureButton.setBounds(30, 61, 164, 54);
 		failureModesPanel.add(engineFailureButton);
 		engineFailureButton.setForeground(Color.BLACK);
 		
 		JButton brakeFailureButton = new JButton("Brake Failure");
+		brakeFailureButton.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		brakeFailureButton.setBounds(30, 130, 164, 54);
 		failureModesPanel.add(brakeFailureButton);
 		
 		JButton signalPickupFailureButton = new JButton("Signal Pickup Failure");
+		signalPickupFailureButton.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		signalPickupFailureButton.setBounds(30, 208, 164, 54);
 		failureModesPanel.add(signalPickupFailureButton);
 		
 		JButton resetButton = new JButton("Reset");
+		resetButton.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		resetButton.setBounds(30, 289, 164, 45);
 		failureModesPanel.add(resetButton);
 		
@@ -195,6 +203,7 @@ public class TrainModelUI {
 		lblBrkInputs.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton tglbtnServiceBrake = new JButton("Service Brake");
+		tglbtnServiceBrake.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		tglbtnServiceBrake.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent o) {
@@ -206,6 +215,7 @@ public class TrainModelUI {
 		brkInputPanel.add(tglbtnServiceBrake);
 		
 		JButton tglbtnEmergencyBrake = new JButton("Passenger Emergency Brake");
+		tglbtnEmergencyBrake.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		tglbtnEmergencyBrake.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent y) {
@@ -364,12 +374,16 @@ public class TrainModelUI {
 		doorPanel.add(lblNewLabel_5);
 		
 		textLeftDoorStat = new JTextField();
+		textLeftDoorStat.setHorizontalAlignment(SwingConstants.CENTER);
+		textLeftDoorStat.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textLeftDoorStat.setEditable(false);
 		textLeftDoorStat.setColumns(10);
 		textLeftDoorStat.setBounds(176, 45, 84, 22);
 		doorPanel.add(textLeftDoorStat);
 		
 		textRightDoorStat = new JTextField();
+		textRightDoorStat.setHorizontalAlignment(SwingConstants.CENTER);
+		textRightDoorStat.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		textRightDoorStat.setEditable(false);
 		textRightDoorStat.setColumns(10);
 		textRightDoorStat.setBounds(176, 71, 84, 22);
@@ -396,6 +410,7 @@ public class TrainModelUI {
 		lblBrakes.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		lblBrakes.setBounds(159, 13, 56, 16);
 		brakePanel.add(lblBrakes);
+		trainSelectBox.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		trainSelectBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				if (arg0.getStateChange() == ItemEvent.SELECTED) {
@@ -405,16 +420,20 @@ public class TrainModelUI {
 			}
 		});
 		
-		trainSelectBox.setBounds(1060, 23, 160, 20);
+		trainSelectBox.setBounds(1060, 23, 58, 20);
 		frmTrainmodelmodule.getContentPane().add(trainSelectBox);
 		
 		txtEBrkStat = new JTextField();
+		txtEBrkStat.setHorizontalAlignment(SwingConstants.CENTER);
+		txtEBrkStat.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		txtEBrkStat.setEditable(false);
 		txtEBrkStat.setColumns(10);
 		txtEBrkStat.setBounds(209, 45, 116, 22);
 		brakePanel.add(txtEBrkStat);
 		
 		txtSBrkStat = new JTextField();
+		txtSBrkStat.setHorizontalAlignment(SwingConstants.CENTER);
+		txtSBrkStat.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		txtSBrkStat.setEditable(false);
 		txtSBrkStat.setColumns(10);
 		txtSBrkStat.setBounds(209, 77, 116, 22);
@@ -426,7 +445,7 @@ public class TrainModelUI {
 		setSpdPanel.setBounds(662, 23, 144, 70);
 		frmTrainmodelmodule.getContentPane().add(setSpdPanel);
 		
-		JLabel lblSetSpd = new JLabel("Set Speed");
+		JLabel lblSetSpd = new JLabel("Target Speed");
 		lblSetSpd.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSetSpd.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		lblSetSpd.setBounds(19, 0, 106, 22);
@@ -646,14 +665,4 @@ public class TrainModelUI {
 		else
 			textRightDoorStat.setText("Closed");
 	}
-	
-	//public void setCurrTrain(int train){
-		//txtCurrTrain.setText(new Integer(train).toString());
-	//}
-	
-	
-
-	
-	
-
 }

@@ -8,55 +8,59 @@ import java.awt.Graphics2D;
 
 import java.util.List;
 
-
 import javax.swing.JPanel;
 
 /**
- * This class is a extended JPanel class for the map ui 
+ * This class is a extended JPanel class for the map ui
+ * 
  * @author Vinayak Nesarikar
  * @version 12/8/16
  *
  */
 
-    class MapPanel extends JPanel {
-        private List<ShapeItem> shapes;
+class MapPanel extends JPanel {
+	private List<ShapeItem> shapes;
 
-        /**
-         * Constructor 
-         * @param shapesList Array list
-         */
-        public MapPanel(List<ShapeItem> shapesList) {
-            this.shapes = shapesList;
+	/**
+	 * Constructor
+	 * 
+	 * @param shapesList
+	 *            Array list
+	 */
+	public MapPanel(List<ShapeItem> shapesList) {
+		this.shapes = shapesList;
 
-        }
+	}
 
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
 
-            Graphics2D g2 = (Graphics2D) g.create();
+		Graphics2D g2 = (Graphics2D) g.create();
 
-            for (ShapeItem item : shapes) {
-                g2.setColor(item.getColor());
-                g2.fill(item.getShape());  
-                g2.setColor(Color.BLACK);
-                g2.setFont(new Font("Times New Roman", Font.BOLD, 15));
-                if(item.getName().equals("Shadyside") || 
-                    item.getName().equals("Herron Ave") ||
-                    item.getName().equals("Yard")|| 
-                    item.getName().equals("Penn Station") || 
-                    item.getName().equals("Steel Plaza") || item.getName().equals("Station Square") || item.getName().length() < 2){
-                  g2.drawString(item.getName(),(int) item.getShape().getBounds2D().getX(),(int) item.getShape().getBounds2D().getY()-5);
-                } else if(item.getName().equals("Underground") ){
-                  g2.drawString(item.getName(),(int) item.getShape().getBounds2D().getX()+70,(int) item.getShape().getBounds2D().getY()+10);
-                } else if (item.getName().equals("Multiple Trains")){
-                  g2.drawString(item.getName(),(int) item.getShape().getBounds2D().getX()+60,(int) item.getShape().getBounds2D().getY()+30);
-                }
-                else if(item.getName().length() > 2){
-                  g2.drawString(item.getName(),(int) item.getShape().getBounds2D().getX(),(int) item.getShape().getBounds2D().getY() + 70);
-                  } 
-            }
+		for (ShapeItem item : shapes) {
+			g2.setColor(item.getColor());
+			g2.fill(item.getShape());
+			g2.setColor(Color.BLACK);
+			g2.setFont(new Font("Times New Roman", Font.BOLD, 15));
+			if (item.getName().equals("Shadyside") || item.getName().equals("Herron Ave")
+					|| item.getName().equals("Yard") || item.getName().equals("Penn Station")
+					|| item.getName().equals("Steel Plaza") || item.getName().equals("Station Square")
+					|| item.getName().length() < 2) {
+				g2.drawString(item.getName(), (int) item.getShape().getBounds2D().getX(),
+						(int) item.getShape().getBounds2D().getY() - 5);
+			} else if (item.getName().equals("Underground")) {
+				g2.drawString(item.getName(), (int) item.getShape().getBounds2D().getX() + 70,
+						(int) item.getShape().getBounds2D().getY() + 10);
+			} else if (item.getName().equals("Multiple Trains")) {
+				g2.drawString(item.getName(), (int) item.getShape().getBounds2D().getX() + 60,
+						(int) item.getShape().getBounds2D().getY() + 30);
+			} else if (item.getName().length() > 2) {
+				g2.drawString(item.getName(), (int) item.getShape().getBounds2D().getX(),
+						(int) item.getShape().getBounds2D().getY() + 70);
+			}
+		}
 
-            g2.dispose();
-        }
-    }
+		g2.dispose();
+	}
+}
