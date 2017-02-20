@@ -101,12 +101,6 @@ public class Controller {
 		return;
 	}
 	
-	
-	
-	
-	
-	
-	
 	//Get station info from the beacon and activate station approach mode
 	public void setStationInfo(String newStationName, String newStationSide) {
 		if(!stationName.equals(newStationName)) {
@@ -115,9 +109,7 @@ public class Controller {
 		}
 		return;
 	}
-	
-	
-	
+		
 	//Call for vital power control only if the brakes aren't set and the train has authority
 		private void controlPower() {
 		//	if(!brakeStatus && !eBrakeStatus ) {	
@@ -198,9 +190,7 @@ public class Controller {
 	{
 		return model.getAuthority();
 	}
-	
-
-	
+		
 	//===================
 	//SUBSYSTEM CONTROL
 	//===================
@@ -287,15 +277,9 @@ public class Controller {
 	{
 		return model.isServiceBrakeActive();
 	}
-	
-	
-	
+		
 	//Check if doors are open
 	public boolean checkDoors() {
 		return leftDoorStatus || rightDoorStatus;
-	}
-	
-	
-	
-	
+	}	
 }
